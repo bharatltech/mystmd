@@ -52,7 +52,7 @@ semester 1993 offering of the course. This version reflects some restructuring a
 revision done for the fall 1994 offering of the course—or after completion of the class.
 For these classes, I used the following resources:
 
-Textbook – Richard Bird and Philip Wadler.Introduction to Functional Program-
+<h1> Textbook</h1> – Richard Bird and Philip Wadler.Introduction to Functional Program-
 ming,Prentice Hall International, 1988 [2].
 These notes more or less cover the material from chapters 1 through 6 plus
 selected material from chapters 7 through 9.
@@ -495,133 +495,135 @@ tion, Evolution, and Application of Functional Programming Languages [13]”.
 Programming languages are often classified according to one of two different para-
 digms: imperative and declarative.
 
-Imperative languages
+### Imperative languages
 
-```
 A program in an imperative language has animplicit state(i.e., values of vari-
 ables, program counters, etc.) that is modified (i.e., side-effected) byconstructs
 (i.e., commands) in the source language.
+
 As a result, such languages generally have an explicit notion ofsequencing(of
 the commands) to permit precise and deterministic control of the state changes.
+
 Imperative programs thus expresshowsomething is to be computed.
+
 These are the “conventional” or “von Neumann languages” discussed by Backus.
+
 They are well suited to traditional computer architectures.
+
 Most of the languages in existence today are in this category: Fortran, Algol,
 Cobol, Pascal, C, Ada, etc.
-```
-Declarative languages
 
-```
+### Declarative languages
+
+
 A program in a declarative language hasno implicitstate. Any needed state
 information must be handled explicitly.
-A program is made up ofexpressions(or terms) rather than commands.
+
+A program is made up of expressions(or terms) rather than commands.
 Repetitive execution is accomplished byrecursionrather than by sequencing.
+
 Declarative programs expresswhatis to be computed (rather than how it is to
 be computed).
+
 Declarative programs are often divided into two types:
-```
-```
-Functional (or applicative) languages
+
+
+### Functional (or applicative) languages
 The underlying model of computation is the mathematical concept of a
 function.
+
 In a computation a function is applied to zero or more arguments to com-
 pute a single result, i.e., the result is deterministic (or predictable).
-```
-```
-Purely functional: FP, Haskell, Miranda, Hope, Orwell
-Hybrid languages: Lisp, Scheme, SML
-(Scheme & SML have powerful declarative subsets)
-Dataflow languages: Id, Sisal
-```
 
-```
-Relational (or logic) languages
+
+Purely functional:        FP, Haskell, Miranda, Hope, Orwell
+Hybrid languages:         Lisp, Scheme, SML
+                          (Scheme & SML have powerful declarative subsets)
+Dataflow languages:  Id, Sisal
+
+
+
+### Relational (or logic) languages
 The underlying model of computation is the mathematical concept of a
-relation(or apredicate).
+relation(or apredicate).  
 A computation is the (nondeterministic) association of a group of values—
-with backtracking to resolve additional values.
-Examples: Prolog (pure), Parlog, KL
+with backtracking to resolve additional values.  
+Examples: Prolog (pure), Parlog, KL1  
 Note: Most Prolog implementations have imperative features such as the
 cut and the ability to assert and retract clauses.
-```
-### 1.4 Reasons for Studying Functional Programming
 
-1. Functional programs are easier to manipulate mathematically than
-    imperative programs.
-    The primary reason for this is the property ofreferential transparency, probably
-    the most important property of modern functional programming languages.
-    Referential transparency means that, within some well-defined context, a vari-
-    able (or other symbol)alwaysrepresents thesame value. Since a variable always
-    has the same value, we can replace the variable in an expression by its value or
-    vice versa. Similarly, if two subexpressions have equal values, we can replace
-    one subexpression by the other. That is, “equals can be replaced by equals”.
-    Functional programming languages thus use the same concept of a variable that
-    mathematics uses.
-    On the other hand, in most imperative languages a variable represents an ad-
-    dress or “container” in which values may be stored; a program may change the
-    value stored in a variable by executing an assignment statement.
-    Because of referential transparency, we can construct, reason about, and manip-
-    ulate functional programs in much the same way we can any other mathematical
-    expressions [2, 3]. Many of the familiar “laws” from high school algebra still
-    hold; new “laws” can be defined and proved for less familiar primitives and
-    even user-defined operators. This enables a relatively natural equational style
-    of reasoning.
-    For example, we may want to prove that a program meets its specification
-    or that two programs are equivalent (in the sense that both yield the same
-    “outputs” given the same “inputs”).
-    We can also construct and prove algebraic “laws” for functional programming.
-    For example, we might prove that some operation (i.e., two-argument function)
-    is commutative or associative or perhaps that one operation distributes over
-    another.
-    Such algebraic laws enable one program to be transformed into another equiv-
-    alent program either by hand or by machine. For example, we might use the
+## 1.4 Reasons for Studying Functional Programming
 
+### 1. Functional programs are easier to manipulate mathematically thanimperative programs.
 
-```
+The primary reason for this is the property ofreferential transparency, probably
+the most important property of modern functional programming languages.<br>
+Referential transparency means that, within some well-defined context, a vari-
+able (or other symbol)alwaysrepresents thesame value. Since a variable always
+has the same value, we can replace the variable in an expression by its value or
+vice versa. Similarly, if two subexpressions have equal values, we can replace
+one subexpression by the other. That is, “equals can be replaced by equals”.
+Functional programming languages thus use the same concept of a variable that
+mathematics uses.  
+On the other hand, in most imperative languages a variable represents an ad-
+dress or “container” in which values may be stored; a program may change the
+value stored in a variable by executing an assignment statement.<br>
+Because of referential transparency, we can construct, reason about, and manip-
+ulate functional programs in much the same way we can any other mathematical
+expressions [2, 3]. Many of the familiar “laws” from high school algebra still
+hold; new “laws” can be defined and proved for less familiar primitives and
+even user-defined operators. This enables a relatively natural equational style
+of reasoning.  
+For example, we may want to prove that a program meets its specification
+or that two programs are equivalent (in the sense that both yield the same
+“outputs” given the same “inputs”).    
+We can also construct and prove algebraic “laws” for functional programming.
+For example, we might prove that some operation (i.e., two-argument function)
+is commutative or associative or perhaps that one operation distributes over
+another.  
+Such algebraic laws enable one program to be transformed into another equiv-
+alent program either by hand or by machine. For example, we might use the
 laws to transform one program into an equivalent program that can be executed
 more efficiently.
-```
-2. Functional programming languages have powerful abstraction mech-
-    anisms.
-    Speaking operationally, a function is an abstraction of a pattern of behavior.
-    For example, if we recognize that a Pascal program needs to repeat thesame
-    operations for each member of a set of similar data structures, then we usually
-    encapsulate the operations in a function or procedure. The function or proce-
-    dure is an abstraction of the application of the operation to data structures of
-    the given type.
-    Now suppose instead that we recognize that our program needs to performsimi-
-    lar, but different, operations for each member of a set of similar data structures.
-    Can we create an abstraction of the application of the similar operations to data
-    structures of the given type?
-    For instance, suppose we want to compute either the sum or the product of
-    the elements of an array of integers. Addition and multiplication are similar
-    operations; they are both associative binary arithmetic operations with identity
-    elements.
-    Clearly, Pascal programs implementing sums and products can go through the
-    same pattern of operations on the array: initialize a variable to the identity
-    element and then loop through the array adding or multiplying each element by
-    the result to that point. Instead of having separate functions for each operation,
-    why not just have one function and supply the operation as an argument?
-    A function that can take functions as arguments or return functions as results is
-    called ahigher-order function. Most imperative languages do not fully support
-    higher-order functions.
-    However, in most functional programming languages functions are treated as
-    first classvalues. That is, functions can be stored in data structures, passed as
-    arguments to functions, and returned as the results of functions.
-    Typically, functions in imperative languages are not treated as first-class values.
-    The higher-order functions in functional programming languages enable very
-    regular and powerful abstractions and operations to be constructed. By taking
-    advantage of a library of higher-order functions that capture common patterns
-    of computation, we can quickly construct concise, yet powerful, programs.
-    A programmer needs to write fewer “lines of code” in a concise programming no-
-    tation than in a verbose one. Thus the programmer should be able to complete
-    the task in less time. Since, in general, a short program is easier to compre-
-    hend than a long one, a programmer is less likely to make an error in a short
-    program than in a long one. Consequently, functional programming can lead to
-    both increased programmer productivity and increased program reliability.
 
+### 2. Functional programming languages have powerful abstraction mechanisms.
+Speaking operationally, a function is an abstraction of a pattern of behavior.<br>
+For example, if we recognize that a Pascal program needs to repeat thesame
+operations for each member of a set of similar data structures, then we usually
+encapsulate the operations in a function or procedure. The function or proce-
+dure is an abstraction of the application of the operation to data structures of
+the given type.  
+Now suppose instead that we recognize that our program needs to performsimi-
+lar, but different, operations for each member of a set of similar data structures.
+Can we create an abstraction of the application of the similar operations to data
+structures of the given type?  
+For instance, suppose we want to compute either the sum or the product of
+the elements of an array of integers. Addition and multiplication are similar
+operations; they are both associative binary arithmetic operations with identity
+elements.  
+Clearly, Pascal programs implementing sums and products can go through the
+same pattern of operations on the array: initialize a variable to the identity
+element and then loop through the array adding or multiplying each element by
+the result to that point. Instead of having separate functions for each operation,
+why not just have one function and supply the operation as an argument?<br>
+A function that can take functions as arguments or return functions as results is
+called ahigher-order function. Most imperative languages do not fully support
+higher-order functions.  
+However, in most functional programming languages functions are treated as
+first classvalues. That is, functions can be stored in data structures, passed as
+arguments to functions, and returned as the results of functions.  
+Typically, functions in imperative languages are not treated as first-class values.
+The higher-order functions in functional programming languages enable very
+regular and powerful abstractions and operations to be constructed. By taking
+advantage of a library of higher-order functions that capture common patterns
+of computation, we can quickly construct concise, yet powerful, programs.  
+A programmer needs to write fewer “lines of code” in a concise programming no-
+tation than in a verbose one. Thus the programmer should be able to complete
+the task in less time. Since, in general, a short program is easier to compre-
+hend than a long one, a programmer is less likely to make an error in a short
+program than in a long one. Consequently, functional programming can lead to
+both increased programmer productivity and increased program reliability.
 
-```
 Caveat: Excessive concern for conciseness can lead to cryptic, difficult to under-
 stand programs and, hence, low productivity and reliability. Conciseness should
 not be an end in itself. The understandability and correctness of a program are
@@ -629,182 +631,187 @@ more important goals.
 Higher-order functions also increase themodularity of programs by enabling
 simple program fragments to be “glued together” readily into more complex
 programs [14].
-```
-3. Functional programming enables new algorithmic approaches.
 
-```
+### 3. Functional programming enables new algorithmic approaches.
+
+
 This is especially true for languages (like Gofer) that use what is called lazy
-evaluation.
+evaluation.  
 In a lazy evaluation scheme, the evaluation of an expression is deferred until the
 value of the expression is actually needed elsewhere in the computation. That
 is, the expression is evaluated on demand. This contrasts with what is called
 eager evaluation in which an expression is evaluated as soon as its inputs are
 available.
-For example, if eager evaluation is used, an argument (which may be an arbi-
-trary expression) of a function call is evaluated before the body of the function.
+
+For example, if eager evaluation is used, an argument (which may be an arbitrary expression) of a function call is evaluated before the body of the function.
 If lazy evaluation is used, the argument is not evaluated until the value is actu-
 ally needed during the evaluation of the function body. If an argument’s value
-is never needed, then the argument is expression is never evaluated.
+is never needed, then the argument is expression is never evaluated.  
 Why should we care? Well, this facility allows programmers to construct and
 use data structures that are conceptually unbounded or infinite in size. As
 long as a program never actually needs to inspect the entire structure, then a
 terminating computation is still possible.
+
 For example, we might define the list of natural numbers as a list beginning
 with 0, followed by the list formed by adding one to each element of the list of
 natural numbers.
+
 Lazy evaluation thus allows programmers to separate the data from the control.
 They can define a data structure without having to worry about how it is
 processed and they can define functions that manipulate the data structure
 without having to worry about its size or how it is created. This ability to
 separate the data from the control of processing enables programs to be highly
 modular [14].
+
 For example, we can define the list of even naturals by applying a function
 that filters out odd integers to the infinite list of naturals defined above. This
 definition has no operational control within it and can thus be combined with
 other functions in a modular way.
-```
-
-4. Functional programming enables new approaches to program devel-
-    opment.
-    As we discussed above, it is generally easier to reason about functional programs
-    than imperative programs. It is possible to prove algebraic “laws” of functional
-    programs that give the relationships among various operators in the language.
-    We can use these laws to transform one program to another equivalent one.
-    These mathematical properties also open up new ways to write programs.
-    Suppose we want a program to break up a string of text characters into lines.
-    Section 4.3 of the Bird and Wadler textbook [2] and Section 12.6 of these notes
-    shows a novel way to construct this program.
-    First, Bird and Wadler construct a program to do the opposite of what we
-    want—to combine lines into a string of text. This function is very easy to
-    write.
-    Next, taking advantage of the fact that this function is the inverse of the desired
-    function, they use the “laws” to manipulate this simple program to find its
-    inverse. The result is the program we want!
-5. Functional programming languages encourage (massively) parallel ex-
-    ecution.
-    To exploit a parallel processor, it must be possible to decompose a program
-    into components that can be executed in parallel, assign these components to
-    processors, coordinate their execution by communicating data as needed among
-    the processors, and reassemble the results of the computation.
-    Compared to traditional imperative programming languages, it is quite easy
-    to execute components of a functional program in parallel [20]. Because of
-    the referential transparency property and the lack of sequencing, there are no
-    time dependencies in the evaluation of expressions; the final value is the same
-    regardless of which expression is evaluated first. The nesting of expressions
-    within other expressions defines the data communication that must occur during
-    execution.
-    Thus executing a functional program in parallel does not require the availability
-    of a highly sophisticated compiler for the language.
-    However, a more sophisticated compiler can take advantage of the algebraic
-    laws of the language to transform a program to an equivalent program that can
-    more efficiently be executed in parallel.
-    In addition, frequently used operations in the functional programming library
-    can be be optimized for highly efficient parallel execution.
-    Of course, compilers can also be used to decompose traditional imperative lan-
-    guages for parallel execution. But it is not easy to find all the potential par-
-    allelism. A “smart” compiler must be used to identify unnecessary sequencing
-    and find a safe way to remove it.
 
 
-```
+### 4. Functional programming enables new approaches to program development.
+
+As we discussed above, it is generally easier to reason about functional programs
+than imperative programs. It is possible to prove algebraic “laws” of functional
+programs that give the relationships among various operators in the language.
+We can use these laws to transform one program to another equivalent one.  
+These mathematical properties also open up new ways to write programs.  
+Suppose we want a program to break up a string of text characters into lines.
+Section 4.3 of the Bird and Wadler textbook [2] and Section 12.6 of these notes
+shows a novel way to construct this program.  
+First, Bird and Wadler construct a program to do the opposite of what we
+want—to combine lines into a string of text. This function is very easy to
+write.  
+Next, taking advantage of the fact that this function is the inverse of the desired
+function, they use the “laws” to manipulate this simple program to find its
+inverse. The result is the program we want!
+
+
+### 5. Functional programming languages encourage (massively) parallel execution.
+
+To exploit a parallel processor, it must be possible to decompose a program
+into components that can be executed in parallel, assign these components to
+processors, coordinate their execution by communicating data as needed among
+the processors, and reassemble the results of the computation.  
+Compared to traditional imperative programming languages, it is quite easy
+to execute components of a functional program in parallel [20]. Because of
+the referential transparency property and the lack of sequencing, there are no
+time dependencies in the evaluation of expressions; the final value is the same
+regardless of which expression is evaluated first. The nesting of expressions
+within other expressions defines the data communication that must occur during
+execution.  
+Thus executing a functional program in parallel does not require the availability
+of a highly sophisticated compiler for the language.
+However, a more sophisticated compiler can take advantage of the algebraic
+laws of the language to transform a program to an equivalent program that can
+more efficiently be executed in parallel.  
+In addition, frequently used operations in the functional programming library
+can be be optimized for highly efficient parallel execution.
+Of course, compilers can also be used to decompose traditional imperative lan-
+guages for parallel execution. But it is not easy to find all the potential par-
+allelism. A “smart” compiler must be used to identify unnecessary sequencing
+and find a safe way to remove it.  
+
 In addition to the traditional imperative programming languages, imperative
 languages have also been developed especially for execution on a parallel com-
 puter. These languages shift some of the work of decomposition, coordination,
-and communication to the programmer.
+and communication to the programmer.  
 A potential advantage of functional languages over parallel imperative languages
 is that the functional programmer does not, in general, need to be concerned
-with the specification and control of the parallelism.
+with the specification and control of the parallelism.  
 In fact, functional languages probably have the problem of too much potential
 parallelism. It is easy to figure out what can be executed in parallel, but it is
 sometimes difficult to determine what components should actually be executed
 in parallel and how to allocate them to the available processors. Functional
 languages may be better suited to the massively parallel processors of the future
 than most present day parallel machines.
-```
-6. Functional programming is important in some application areas of
-    computer science.
-    The artificial intelligence (AI) research community has used languages such as
-    Lisp and Scheme since the 1960’s. Some AI applications have been commercial-
-    ized during the past decade.
-    Also a number of the specification, modeling, and rapid-prototyping languages
-    that are appearing in the software engineering community have features that
-    are similar to functional languages.
-7. Functional programming is related to computing science theory.
 
-```
+### 6. Functional programming is important in some application areas of computer science.
+The artificial intelligence (AI) research community has used languages such as
+Lisp and Scheme since the 1960’s. Some AI applications have been commercial-
+ized during the past decade.
+
+Also a number of the specification, modeling, and rapid-prototyping languages
+that are appearing in the software engineering community have features that
+are similar to functional languages.
+
+### 7. Functional programming is related to computing science theory.
+
 The study of functional programming and functional programming languages
 provides a good opportunity to learn concepts related to programming language
 semantics, type systems, complexity theory, and other issues of importance in
 the theory of computing science.
-```
-8. Functional programming is an interesting and mind-expanding activ-
-    ity for students of computer science!?
-    Functional programming requires the student to develop a different perspective
-    on programming.
+
+### 8. Functional programming is an interesting and mind-expanding activity for students of computer science!?
+Functional programming requires the student to develop a different perspective
+on programming.
+
+
+
 
 
 ### 1.5 Objections Raised Against Functional Programming
+<br>
 
-1. Functional programming languages are inefficient toys!
-    This was definitely true in the early days of functional programming. Functional
-    languages tended to execute slowly, require large amounts of memory, and have
-    limited capabilities.
-    However, research on implementation techniques has resulted in more efficient
-    and powerful implementations today.
-    Although functional language implementations will probably continue to in-
-    crease in efficiency, they likely will never become as efficient as the implemen-
-    tations of imperative “von Neumann” languages are on traditional “von Neu-
-    mann” architectures.
-    However, new computer architectures may allow functional programs to ex-
-    ecute competitively with the imperative languages on today’s architectures.
-    For example, computers based on the dataflow and graph reduction models of
-    computation are more suited to execute functional languages than imperative
-    languages.
-    Also the ready availability of parallel computers may make functional languages
-    more competitive because they more readily support parallelism than traditional
-    imperative languages.
-    Moreover, processor time and memory usage just aren’t as important concerns
-    as they once were. Both fast processors and large memories have become rel-
-    atively inexpensive and readily available. Now it is common to dedicate one
-    or more processors and several megabytes of memory to individual users of
-    workstations and personal computers.
-    As a result, the community can now afford to dedicate considerable computer
-    resources to improving programmer productivity and program reliability; these
-    are issues that functional programming may address better than imperative
-    languages.
-2. Functional programming languages are not (and cannot be) used in
-    the real world!
-    It is still true that functional programming languages are not used very widely
-    in industry. But, as we have argued above, the functional style is becoming more
-    important—especially as commercial AI applications have begun to appear.
-    If new architectures like the dataflow machines emerge into the marketplace,
-    functional programming languages will become more important.
-    Although the functional programming community has solved many of the dif-
-    ficulties in implementation and use of functional languages, more research is
-    needed on several issues of importance to the real world: on facilities for in-
-    put/output, nondeterministic, realtime, parallel, and database programming.
+   ### 1. Functional programming languages are inefficient toys!
+This was definitely true in the early days of functional programming. Functional
+languages tended to execute slowly, require large amounts of memory, and have
+limited capabilities.<br>
+However, research on implementation techniques has resulted in more efficient
+and powerful implementations today.<br>
+Although functional language implementations will probably continue to in-
+crease in efficiency, they likely will never become as efficient as the implemen-
+tations of imperative “von Neumann” languages are on traditional “von Neu-
+mann” architectures.<br>
+However, new computer architectures may allow functional programs to ex-
+ecute competitively with the imperative languages on today’s architectures.
+For example, computers based on the dataflow and graph reduction models of
+computation are more suited to execute functional languages than imperative
+languages.<br>
+Also the ready availability of parallel computers may make functional languages
+more competitive because they more readily support parallelism than traditional
+imperative languages.<br>
+Moreover, processor time and memory usage just aren’t as important concerns
+as they once were. Both fast processors and large memories have become rel-
+atively inexpensive and readily available. Now it is common to dedicate one
+or more processors and several megabytes of memory to individual users of
+workstations and personal computers.<br>
+As a result, the community can now afford to dedicate considerable computer
+resources to improving programmer productivity and program reliability; these
+are issues that functional programming may address better than imperative
+languages.
 
+### 2. Functional programming languages are not (and cannot be) used in the real world!
 
-```
+It is still true that functional programming languages are not used very widely
+in industry. But, as we have argued above, the functional style is becoming more
+important—especially as commercial AI applications have begun to appear.<br>
+If new architectures like the dataflow machines emerge into the marketplace,
+functional programming languages will become more important.<br>
+Although the functional programming community has solved many of the dif-
+ficulties in implementation and use of functional languages, more research is
+needed on several issues of importance to the real world: on facilities for in-
+put/output, nondeterministic, realtime, parallel, and database programming.
+
 More research is also needed in the development of algorithms for the functional
 paradigm. The functional programming community has developed functional
 versions of many algorithms that are as efficient, in terms of big-O complexity,
 as the imperative versions. But there are a few algorithms for which efficient
 functional versions have not yet been found.
-```
-3. Functional programming is awkward and unnatural!
 
-```
+### 3. Functional programming is awkward and unnatural!
+
+
 Maybe. It might be the case that functional programming somehow runs
 counter to the way that normal human minds work—that only mental deviants
 can ever become effective functional programmers. Of course, some people
-might say that about programming and programmers in general.
+might say that about programming and programmers in general.<br>
 However, it seems more likely that the awkwardness arises from the lack of
 education and experience. If we spend many years studying and doing pro-
 gramming in the imperative style, then any significantly different approach will
-seem unnatural.
+seem unnatural.<br>
 Let’s give the functional approach a fair chance.
-```
+
 
 ## 2 FUNCTIONS AND THEIR DEFINITIONS
 
