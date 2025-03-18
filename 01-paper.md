@@ -1422,137 +1422,134 @@ hcc@Cy>**
 ### 5.1 Built-in Types
 
 The type system is an important part of Gofer; the interpreter uses the type information to detect errors in expressions and function definitions. To each expression
-Gofer assigns atypethat describes the kind of value represented by the expression.
+Gofer assigns a type that describes the kind of value represented by the expression.
 
 Gofer has both built-in types and facilities for defining new types. In the following
 we discuss the built-in types. Note that Gofer type names begin with a capital letter.
 
-Integers: Int
+**Integers:** *Int*
 
 Gofer supports the usual integer literals (i.e., constants) and operations.
 
-Floating point numbers: Float
+**Floating point numbers:** *Float*
 
 Gofer floating point literals must include a decimal point; they may be signed or in
-scientific notation : 3.14159,2.0,-2.0,1.0e4,5.0e-2,-5.0e-2.
+scientific notation : **3.14159,2.0,-2.0,1.0e4,5.0e-2,-5.0e-2.**
 
-Booleans : Bool
+**Booleans** : *Bool*
 
-Boolean literals areTrueandFalse(note capitals). Gofer supports Boolean opera-
-tions such as&&(and),||(or), andnot.
+Boolean literals are True and False (note capitals). Gofer supports Boolean operations such as &&(and),| |(or), and not.
 
-Characters : Char
+**Characters** : *Char*
 
 Gofer supports (ASCII) character literals enclosed in single quotes—including both
-the graphic characters (e.g.,’a’,’0’, and’Z’) and special codes entered following
-the escape character backslash “\” (e.g.,’\n’for newline,’\t’for horizontal tab,
-and’\\’for backslash itself).
+the graphic characters (e.g.,**’a’**,**’0’**, and **’Z’**) and special codes entered following
+the escape character backslash “\” (e.g.,**’\n’** for newline, **’\t’** for horizontal tab,
+and **’\\’** for backslash itself).
 
 In addition, a backslash character followed by a number generates the corresponding
 ASCII character code. The first character of the number being 0 denotes octal,x
 denotes hexadecimal, and another numeric character denotes decimal.
 
-For example, the exclamation point character can be represented in any of the fol-
-lowing ways : ’!’,’\33’,’\041’,’\x21’
+For example, the exclamation point character can be represented in any of the following ways : **’!’,’\33’,’\041’,’\x21’**
 
 
-Functions : t1 -> t2
+**Functions:** *t1 -> t2*
 
-Ift1andt2are types thent1 -> t2is the type of a function that takes an argument
-of typet1and returns a result of typet2. Function and variable names begin with
+If t1 and t2 are types then t1 -> t2 is the type of a function that takes an argument
+of type t1 and returns a result of type t2. Function and variable names begin with
 a lowercase letter optionally followed by a sequences of characters each of which is a
-letter, a digit, an apostrophe (′), or an underscore ().
+letter, a digit, an apostrophe (′), or an underscore (_).
 
 Gofer functions are first-class objects. They can be arguments or results of other
 functions or be components of data structures. This enables multi-argument functions
 to be treated as if they take their arguments one at a time.
 
-For example, consider the integer addition operation(+). In mathematics, we nor-
-mally consider addition as an operation that takes apairof integers and yields an
+For example, consider the integer addition operation (+). In mathematics, we normally consider addition as an operation that takes a *pair* of integers and yields an
 integer result. In Gofer, we give the addition operation the type
 
-```
-(+) :: Int -> (Int -> Int)
-```
+
+**(+) :: Int -> (Int -> Int)**
+
 or just
 
-```
-(+) :: Int -> Int -> Int
-```
-since->binds from the right.
 
-Thus(+) is a one argument function that takes someIntargument and returns a
-function of typeInt -> Int. Hence, the expression((+) 5)denotes a function that
+**(+) :: Int -> Int -> Int**
+
+since -> binds from the right.
+
+Thus(+) is a one argument function that takes some **Int** argument and returns a
+function of type **Int -> Int**. Hence, the expression((+) 5)denotes a function that
 takes one argument and returns that argument plus 5.
 
-We sometimes speak of this(+) operation as beingpartially applied (i.e., to one
+We sometimes speak of this (+) operation as being partially applied (i.e., to one
 argument instead of two).
 
 This process of replacing a structured argument by a sequence of simpler ones is called
-currying, named after American logician Haskell B. Curry who first described it.
+*currying*, named after American logician Haskell B. Curry who first described it.
 
-The Gofer library, called thestandard prelude, contains a wide range of predefined
+The Gofer library, called the *standard prelude*, contains a wide range of predefined
 functions including the usual arithmetic, relational, and Boolean operations. Some
-of these operations are predefined asinfixoperations.
+of these operations are predefined as *infix* operations.
 
-Lists: [t]
+**Lists:** *[t]*
 
-The primary built-in data structure in Gofer is thelist, a sequence of values. All the
+The primary built-in data structure in Gofer is the *list*, a sequence of values. All the
 elements in a list must have the same type. Thus we declare lists with notation such
-as[t]to denote a list of zero or more elements of typet.
+as *[t]* to denote a list of zero or more elements of type t.
 
-Alist is eitherempty or it is a pair consisting of ahead elementand atail that is
+A list is either *empty* or it is a pair consisting of a head element and a tail that is
 itself a list of elements.
 
 Empty square brackets ([]), pronounced “nil”, represent the empty list.
 
 
-A colon (:), pronounced “cons”, represents thelist constructoroperation between a
+A colon (:), pronounced “cons”, represents the list constructor operation between a
 head element on the left and a tail list on the right.
 
-For example,[],2:[], and3:(2:[])denote lists.
+For example, **[],2:[], and3:(2:[])** denote lists.
 
 Gofer adds a bit of syntactic sugar to make expressing lists easier. The cons operations
-binds from the right. Thus5:(3:(2:[]))can be written5:3:2:[]. As a further
+binds from the right. Thus **5:(3:(2:[]))** can be written **5:3:2:[]**. As a further
 convenience, a list can be written as a comma-separated sequence enclosed in brackets,
-e.g.,5:3:2:[]as[5,3,2].
+e.g.,**5:3:2:[]** as **[5,3,2]**.
 
 Gofer supports two list selector functions,headandtail, such that:
 
-```
-head (h:t) =⇒ h, wherehis the head element of list,
-tail (h:t) =⇒ t, wheretis the tail list.
-```
-Aside: Instead ofhead, Lisp usescarand other languages usehd,first, etc. Instead
-oftail, Lisp usescdrand other languages usetl,rest, etc.
+
+**head (h:t) =⇒ h, wherehis the head element of list,  
+tail (h:t) =⇒ t, wheretis the tail list.**
+
+Aside: Instead of **head**, Lisp uses **car** and other languages use **hd**,**first**, etc. Instead
+of **tail**, Lisp uses **cdr** and other languages use **tl**,**rest**, etc.
 
 The standard prelude supports a number of other useful functions on lists. For
-example,lengthtakes a list and returns its length.
+example,**length** takes a list and returns its length.
 
 Note that lists are defined inductively. That is, they are defined in terms of a base
-element[]and the list constructor operation cons (:). As you would expect, a form of
+element[] and the list constructor operation cons (:). As you would expect, a form of
 mathematical induction can be used to prove that list-manipulating functions satisfy
 various properties. We will discuss in Section 11.1.
 
-Strings : String
+**Strings:**  *String*
 
-In Gofer, astring is treated as a list of charaters.. Thus the data typeStringis
-defined with atype synonymas follows:
+In Gofer, a *string* is treated as a list of charaters.. Thus the data type *String* is
+defined with a *type synonymas* follows:
 
 ```
 type String = [Char]
 ```
 In addition to the standard list syntax, aStringliteral can be given by a sequence
 of characters enclosed in double quotes. For example,"oxford" is shorthand for
-[’o’,’x’,’f’,’o’,’r’,’d’].
+**[’o’,’x’,’f’,’o’,’r’,’d’].**
 
 Strings can contain any graphic character or any special character given as escape
-code sequence (using backslash). The special escape code\&is used to separate any
+code sequence (using backslash). The special escape code **\\&** is used to separate any
 character sequences that are otherwise ambiguous.
 
-Example:"Hello\nworld!\n"is a string that has two newline characters embedded.
+Example: **"Hello\nworld!\n"** is a string that has two newline characters embedded.
 
-Example:"\12\&3"represents the list[’\12’,’3’].
+Example: **"\12\&3"**represents the list **[’\12’,’3’]**.
 
 Because strings are represented as lists, all of the standard prelude functions for
 manipulating lists also apply to strings.
@@ -1586,26 +1583,26 @@ len "five"
 =⇒ 1 + 3
 =⇒ 4
 ```
-Note that the argument string for the recursive application oflenis simpler (i.e.,
-shorter) than the original argument. Thuslen will eventually be applied to a[]
-argument and, hence,len’s evaluation will terminate.
+Note that the argument string for the recursive application of **len** is simpler (i.e.,
+shorter) than the original argument. Thus len will eventually be applied to a[]
+argument and, hence, len’s evaluation will terminate.
 
-The above definition oflenonly works for strings. How can we make it work for a
+The above definition of **len** only works for strings. How can we make it work for a
 list of integers or other elements?
 
-For an arbitrary typea, we wantlento take objects of type[a]and return anInt
+For an arbitrary type a, we want **len** to take objects of type[a]and return an Int
 value. Thus its type signature could be:
 
 ```
 len :: [a] -> Int
 ```
-Ifais a variable name (i.e., it begins with a lowercase letter) that does not already
-have a value, then the type expression aused as above is atype variable; it can
+If a is a variable name (i.e., it begins with a lowercase letter) that does not already
+have a value, then the type expression a used as above is a *type variable*; it can
 represent an arbitrary type. All occurrences of a type variable appearing in a type
 signature must, of course, represent the same type.
 
 An object whose type includes one or more type variables can be thought of having
-many different types and is thus described as having apolymorphic type. (Literally,
+many different types and is thus described as having a *polymorphic* type. (Literally,
 its type has “many shapes”.)
 
 Polymorphism and first-class functions are powerful abstraction mechanisms: they
@@ -1619,23 +1616,22 @@ head :: [a] -> a
 tail :: [a] -> [a]
 (:) :: a -> [a] -> [a]
 ```
-Tuples: (t1,t2,···,tn)
+**Tuples:** *(t1,t2,···,tn)*
 
-Ift1,t2,···,tnare types, wherenis finite andn ≥ 2 , then(t1,t2,···,tn)is a
-type consisting ofn-tupleswhere the various components have the type given for that
+If **t1,t2,···,tn** are types, where **n** is finite and **n ≥ 2** , then **(t1,t2,···,tn)** is a
+type consisting of n-tuples where the various components have the type given for that
 position.
 
 Unlike lists, the elements in a tuple may have different types. Also unlike lists, the
-number of elements in a tuple is fixed. The tuple is analogous to therecordin Pascal
-orstructurein C.
+number of elements in a tuple is fixed. The tuple is analogous to the record in Pascal
+or structure in C.
 
 Examples:
 
 ```
 (1,[2],3) :: (Int, [Int], Int)
 ((’a’,False),(3,4)) :: ((Char, Bool), (Int, Int))
-```
-```
+
 type Complex = (Float,Float)
 makeComplex :: Float -> Float -> Complex
 makeComplex r i = (r,i)
@@ -1646,8 +1642,8 @@ In the factorial examples we used integer and natural number patterns to break o
 various cases of a function definition into separate equations. Lists and other data
 types may also be used in patterns.
 
-Pattern matching helps enable theform of the algorithmmatch theform of the data
-structure.
+Pattern matching helps enable the *form of the algorithm match theform of the data
+structure.*
 
 This is considered elegant. It is also pragmatic. The structure of the data often
 suggests the algorithm that is needed for a task.
@@ -1659,12 +1655,12 @@ cases is usually a good place to begin.
 
 #### 5.2.1 Summation of a list (sumlist)
 
-Consider a functionsumlistto sum all the elements in a list of integers. That is, if
-the list isv 1 ,v 2 ,v 3 ,···,vn, then the sum of the list is the value resulting from inserting
-the addition operator between consecutive elements of the list:v 1 +v 2 +v 3 +···+vn.
+Consider a function **sumlist** to sum all the elements in a list of integers. That is, if
+the list is *v1 ,v2 ,v3 ,···,vn,* then the sum of the list is the value resulting from inserting
+the addition operator between consecutive elements of the list: *v1 +v2 +v3 +···+vn*.
 
-Since addition is anassociativeoperation (that is, (x+y) +z=x+ (y+z) for any
-integersx,y, andz), the above additions can be computed in any order.
+Since addition is an associative operation (that is, *(x+y) +z=x+ (y+z)* for any
+integers *x,y, and z*), the above additions can be computed in any order.
 
 What is the sum of an empty list?
 
@@ -1672,8 +1668,8 @@ Since there are no numbers to add, then, intuitively, zero seems to be the prope
 value for the sum.
 
 In general, if some binary operation is inserted between the elements of a list, then the
-result for an empty list is theidentityelement for the operation. Since 0+x=x=x+0
-for all integersx, zero is the identity element for addition.
+result for an empty list is theidentityelement for the operation. Since *0+x=x=x+0*
+for all integers x, zero is the identity element for addition.
 
 Now, how can we compute the sum of a nonempty list?
 
@@ -1682,10 +1678,10 @@ it to the sum of the rest of the list. Note that the “rest of the list” is a
 shorter) list than the original list. This suggests a recursive definition.
 
 The fact that Gofer defines lists recursively as a cons of a head element with a tail
-list suggests that we structure the algorithm around the structure of thebeginningof
+list suggests that we structure the algorithm around the structure of the beginning of
 the list.
 
-Bringing together the two cases above, we can define the functionsumlistin Gofer
+Bringing together the two cases above, we can define the function sumlist in Gofer
 as follows:
 
 ```
@@ -1695,48 +1691,48 @@ sumlist (x:xs) = x + sumlist xs -- non-nil list
 ```
 - All of the text between the symbol “--” and the end of the line represents a
     comment; it is ignored by the Gofer interpreter.
-- This definition uses twolegs. The equation in the first leg is used for nil list
+- This definition uses two legs. The equation in the first leg is used for nil list
     arguments, the second for non-nil arguments.
-- Note the(x:xs)pattern in the second leg. The “:” is the list constructor
-    operationcons.
+- Note the **(x:xs)** pattern in the second leg. The “:” is the list constructor
+    operation *cons*.
     If this pattern succeeds, then the head element of the argument list is bound
-    to the variablexand the tail of the argument list is bound to the variablexs.
+    to the variable x and the tail of the argument list is bound to the variable xs.
     These bindings hold for the right-hand side of the equation.
 
 
 - The use of the cons in the pattern simplifies the expression of the case. Other-
-    wise the second leg would have to be stated using theheadandtailselectors
+    wise the second leg would have to be stated using the **head** and **tail** selectors
     as follows:
 
 ```
 sumlist xs = head xs + sumlist (tail xs)
 ```
-- Note the use of the simple name xto represent items of some type and the
-    name xs, the same name with ans(for sequence) appended, to represent a
+- Note the use of the simple name x to represent items of some type and the
+    name xs, the same name with an s(for sequence) appended, to represent a
     list of that same type. This is a useful convention (adopted from the Bird and
     Wadler textbook) that helps make a definition easier to understand.
 - Remember that patterns (and guards) are tested in the order of occurrence (i.e.,
     left to right, top to bottom). Thus, in most situations, the cases should be listed
     from the most specific (e.g., nil) to the most general (e.g., non-nil).
 - The length of a non-nil argument decreases by one for each successive recursive
-    application. Thussumlist will eventually be applied to a[] argument and
+    application. Thus sumlist will eventually be applied to a [] argument and
     terminate.
 
 #### 5.2.2 Length of a list (length’)
 
 As another example, consider the function for the length of a list that we discussed
-earlier (aslen). Using list patterns we can definelength’as follows:
+earlier (as **len**). Using list patterns we can define length’ as follows:
 
 ```
 length’ :: [a] -> Int
-length’ [] = 0 -- nil list
-length’ (:xs) = 1 + length’ xs -- non-nil list
+length’ [] = 0                  -- nil list
+length’ (:xs) = 1 + length’ xs  -- non-nil list
 ```
-Note the use of the wildcard pattern underscore “”. This represents a “don’t care”
+Note the use of the wildcard pattern underscore “_”. This represents a “don’t care”
 value. In this pattern it matches the head, but no value is bound; the right-hand side
 of the equation does not need the actual value.
 
-This definition is similar to the definition forlengthin the standard prelude.
+This definition is similar to the definition for **length** in the standard prelude.
 
 #### 5.2.3 Removing adjacent duplicates (remdups)
 
@@ -1776,44 +1772,42 @@ remdups (x:y:xs)
 | x /= y = x : remdups (y:xs)
 remdups xs = xs
 ```
-- Note the use of the pattern (x:y:xs). This pattern match succeeds if the
-    argument list has at least two elements: the head element is bound tox, the
-    second element toy, and the tail toxs.
+- Note the use of the pattern **(x:y:xs)**. This pattern match succeeds if the
+    argument list has at least two elements: the head element is bound to **x**, the
+    second element to **y**, and the tail to **xs**.
 - Note the use of guards to distinguish between the cases where the two elements
-    are equal (==) and where they are not equal (/=).
-- In this definition the case patterns overlap, that is, a list with at least two ele-
-    ments satisfies both patterns. But since the cases are evaluated top to bottom,
+    are equal **(==)** and where they are not equal **(/=)**.
+- In this definition the case patterns overlap, that is, a list with at least two elements satisfies both patterns. But since the cases are evaluated top to bottom,
     the list only matches the first pattern. Thus the second pattern just matches
     lists with fewer than two elements.
 
-Note thatremdupstakes an argument of type[Int]. What if we wanted to make
+Note that **remdups** takes an argument of type **[Int]** . What if we wanted to make
 the list type polymorphic?
 
 At first glance, it would seem to be sufficient to giveremdupsthe polymorphic type
-[a] -> [a]. But the guards complicate the situation a bit.
+**[a] -> [a]**. But the guards complicate the situation a bit.
 
 Evaluation of the guards requires that Gofer be able to compare elements of the
-polymorphic typeafor equality (==) and inequality (/=). For some types these com-
-parisons may not be supported. (For example, suppose the elements are functions.)
+polymorphic type **a** for equality **(==)** and inequality **(/=)**. For some types these comparisons may not be supported. (For example, suppose the elements are functions.)
 Thus we need to restrict the polymorphism to types in which the comparisons are
 supported.
 
 
-We can restrict the range of types by using acontextpredicate. The following type
-signature restricts the polymorphism of type variableato the built-inclassEq, the
-group of types for which both equality (==) and inequality (/=) comparisons have
+We can restrict the range of types by using a context predicate. The following type
+signature restricts the polymorphism of type variable **a** to the built-in class **Eq**, the
+group of types for which both equality **(==)** and inequality **(/=)** comparisons have
 been defined:
 
 ```
 remdups :: Eq [a] => [a] -> [a]
 ```
-Another useful context is the classOrd, which is a subset ofEq.Orddenotes the class
-of objects for which the relational operators<,<=, >, and>=have been defined in
-addition to==and/=.
+Another useful context is the class **Ord**, which is a subset of **Eq.Ord** denotes the class
+of objects for which the relational operators **<,<=, >,** and **>=** have been defined in
+addition to **==** and **/=**.
 
 In most situations the type signature can be left off the declaration of a function.
-Gofer then attempts to infer an appropriate type. Forremdups, the type inference
-mechanism would assign the typeEq [a] => [a] -> [a]. However, in general, it is
+Gofer then attempts to infer an appropriate type. For remdups, the type inference
+mechanism would assign the type **Eq [a] => [a] -> [a]**. However, in general, it is
 good practice to give explicit type signatures.
 
 #### 5.2.4 More example patterns
@@ -1821,69 +1815,68 @@ good practice to give explicit type signatures.
 The following table shows Gofer parameter patterns, corresponding arguments, and
 the result of the attempted match.
 
-Pattern Argument Succeeds? Bindings
-1 1 yes none
-x 1 yes x ← 1
-(x:y) [1,2] yes x ← 1, y ← [2]
-(x:y) [[1,2]] yes x ← [1,2], y ← []
-(x:y) ["olemiss"] yes x ← "olemiss", y ← []
-(x:y) "olemiss" yes x ← ’o’, y ← "lemiss"
-(1:x) [1,2] yes x ← [2]
-(1:x) [2,3] no
-(x:::y) [1,2,3,4,5,6] yes x ← 1, y ← [4,5,6]
-[] [] yes none
-[x] ["Cy"] yes x ← "Cy"
-[1,x] [1,2] yes x ← 2
-[x,y] [1] no
-(x,y) (1,2) yes x ← 1, y ← 2
+Pattern       Argument        Succeeds?          Bindings   
+  1              1                yes               none   
+x 1 yes x ← 1  
+(x:y) [1,2] yes   x ← 1, y ← [2]
+(x:y) [[1,2]] yes   x ← [1,2], y ← []
+(x:y) ["olemiss"] yes   x ← "olemiss", y ← []
+(x:y) "olemiss" yes   x ← ’o’, y ← "lemiss"
+(1:x) [1,2] yes   x ← [2]
+(1:x) [2,3] no  
+(x:_:_:y) [1,2,3,4,5,6] yes x ← 1, y ← [4,5,6]  
+[] [] yes none  
+[x] ["Cy"] yes x ← "Cy"  
+[1,x] [1,2] yes x ← 2  
+[x,y] [1] no  
+(x,y) (1,2) yes x ← 1, y ← 2  
 
 
 ### 5.3 Infix Operations
 
-In Gofer, a binary operation is a function of typet1 -> t2 -> t3for some typest1,
-t2, andt3. We usually prefer to use infix syntax rather than prefix syntax to express
+In Gofer, a binary operation is a function of type **t1 -> t2 -> t3** for some types **t1,
+t2,** and **t3** . We usually prefer to use infix syntax rather than prefix syntax to express
 the application of a binary operation. Infix operators usually make expressions easier
 to read; they also make statement of mathematical properties more convenient.
 
 Often we use several infix operators in an expression. To ensure that the expression is
 not ambiguous (i.e., the operations are done in the desired order), we must either use
-parentheses to give the order explicitly (e.g.,((y * (z+2)) + x)) or use syntactic
+parentheses to give the order explicitly (e.g.,**((y * (z+2)) + x)**) or use syntactic
 conventions to give the order implicitly.
 
 Typically the application order for adjacent operators of different kinds is determined
-by the relative precedence of the operators. For example, the multiplication (*)
+by the relative precedence of the operators. For example, the multiplication **(*)**
 operation has a higher precedence (i.e., binding power) than addition, so, in the
 absence of parentheses, a multiplication will be done before an adjacent addition.
-That is,x + y * zis taken as equivalent to(x + (y * z)).
+That is, **x + y * z** is taken as equivalent to **(x + (y * z))**.
 
 In addition, the application order for adjacent operators of the same binding power
-is determined by a binding (orassociation) order. For example, the addition (+)
-and subtraction-operations have the same precedence. By convention, they bind
-more strongly to the left in arithmetic expressions. That is,x + y - zis taken as
-equivalent to((x + y) - z).
+is determined by a binding (or association) order. For example, the addition (+)
+and subtraction - operations have the same precedence. By convention, they bind
+more strongly to the left in arithmetic expressions. That is, **x + y - z** is taken as
+equivalent to**((x + y) - z)**.
 
-By convention, operators such as exponentiation (denoted by^) and cons bind more
-strongly to the right. Some other operations (e.g., division and the relational com-
-parison operators) have no default binding order—they are said to havefreebinding.
+By convention, operators such as exponentiation (denoted by ^) and cons bind more
+strongly to the right. Some other operations (e.g., division and the relational comparison operators) have no default binding order—they are said to have free binding.
 
-Accordingly, Gofer provides the statementsinfix,infixl, andinfixrfor declaring
+Accordingly, Gofer provides the statements infix, infixl, and infixr for declaring
 a symbol to be an infix operator with free, left, and right binding, respectively. The
 first argument of these statements give the precedence level as an integer in the
 range 0 to 9, with 9 being the strongest binding. Normal function application has a
 precedence of 10.
 
 The operator precedence table for a few of the common operations from the standard
-prelude is below. We introduce the++operator in the next section.
+prelude is below. We introduce the **++** operator in the next section.
 
 ```
-infixr 8 ^ -- exponentiation
+infixr 8 ^ -- exponentiation  
 infixl 7 * -- multiplication
 infix 7 / -- division
 infixl 6 +, - -- addition, subtraction
 infixr 5 : -- cons
 infix 4 ==, /=, <, <=, >=, > -- relational comparisons
 infixr 3 && -- Boolean AND
-infixr 2 || -- Boolean OR
+infixr 2 | | -- Boolean OR
 ```
 
 ### 5.4 Recursive Programming Styles
@@ -1891,12 +1884,12 @@ infixr 2 || -- Boolean OR
 #### 5.4.1 Appending lists (++)
 
 Suppose we want a function that takes two lists and returns their concatenation, that
-is,appendsthe second list after the first. This function is a binary operation on lists
-much like+is a binary operation on integers.
+is, appends the second list after the first. This function is a binary operation on lists
+much like **+**  is a binary operation on integers.
 
-Further suppose we want to introduce the infix operator symbol++for the append
+Further suppose we want to introduce the infix operator symbol **++** for the append
 function. Since we want to evaluate lists lazily from their heads, we choose right
-binding for both cons and++. Since append is, in a sense, an extension of cons (:),
+binding for both cons and **++**. Since append is, in a sense, an extension of cons (:),
 we give them the same precedence:
 
 ```
@@ -1914,8 +1907,7 @@ Similarly, append must take a list as its left operand and a list as its right o
 return a new list with the left operand as the initial segment and the right operand
 as the final segment.
 
-Given the definition of cons, it seems reasonable that an algorithm for++must con-
-sider the structure of its left operand. Thus we consider the cases for nil and non-nil
+Given the definition of cons, it seems reasonable that an algorithm for **++** must consider the structure of its left operand. Thus we consider the cases for nil and non-nil
 left operands.
 
 If the left operand is nil, then the right operand can be returned as the result. It is
@@ -1926,20 +1918,19 @@ followed by the append of the left operand’s tail and the right operand.
 
 Again we have used the form of the data to guide the development of the form of
 the algorithm. In particular, we used the form of the left operand. Thus we have
-the following definition for++(which is the same as the definition in the standard
+the following definition for **++** (which is the same as the definition in the standard
 prelude):
 
 ```
 (++) :: [a] -> [a] -> [a]
-[] ++ xs = xs -- nil left operand
+[] ++ xs = xs               -- nil left operand
 (x:xs) ++ ys = x:(xs ++ ys) -- non-nil left operand
 ```
 Note the infix patterns given on the left-hand sides of the defining equations.
 
 
-For the recursive application of++, the length of the left operand decreases by one.
-Hence the left operand of a++application eventually becomes nil, allowing the eval-
-uation to terminate.
+For the recursive application of **++**, the length of the left operand decreases by one.
+Hence the left operand of a **++** application eventually becomes nil, allowing the evaluation to terminate.
 
 Simulation (this is not the actual series of steps taken by Gofer):
 
@@ -1951,18 +1942,17 @@ Simulation (this is not the actual series of steps taken by Gofer):
 =⇒ 1:(2:(3:[3,2,1]))
 = [1,2,3,3,2,1]
 ```
-The number of steps needed to evaluatexs ++ ysis proportional to the length ofxs,
-the left operand. That is, it isO(n), wherenis the lengthxs..
+The number of steps needed to evaluate **xs ++ ys** is proportional to the length of **xs**,
+the left operand. That is, it is *O(n)*, wherenis the length **xs..**
 
-The append operation has a number of useful algebraic properties, for example, as-
-sociativity and an identity element.
+The append operation has a number of useful algebraic properties, for example, associativity and an identity element.
 
-Associativity:For any finite listsxs,ys, andzs,
-xs ++ (ys ++ zs) = (xs ++ ys) ++ zs.
+**Associativity:** For any finite lists **xs,ys,** and **zs,  
+xs ++ (ys ++ zs) = (xs ++ ys) ++ zs.**
 
-Identity: For any finite listxs, [] ++ xs = xs = xs ++ [].
+**Identity:** For any finite list **xs, [] ++ xs = xs = xs ++ [].**
 
-(Thus operation++over finite lists forms an algebraic structure called amonoid.)
+(Thus operation **++** over finite lists forms an algebraic structure called amonoid.)
 We will prove these and other properties in Section 11.
 
 #### 5.4.2 Reversing a list (rev)
@@ -1975,10 +1965,10 @@ the function can append the head element at the back of the reversed tail.
 
 ```
 rev :: [a] -> [a]
-rev [] = [] -- nil argument
-rev (x:xs) = rev xs ++ [x] -- non-nil argument
+rev [] = []                 -- nil argument
+rev (x:xs) = rev xs ++ [x]  -- non-nil argument
 ```
-Given that evaluation of++terminates, we note that evaluation ofrevalso terminates
+Given that evaluation of **++** terminates, we note that evaluation of **rev** also terminates
 because all recursive applications decrease the length of the argument by one.
 
 
@@ -2000,34 +1990,33 @@ rev "bat"
 ```
 How efficient is this function?
 
-The evaluation ofrevtakesO(n^2 ) steps, wherenis the length of the argument. There
-areO(n) applications ofrev; for each application ofrevthere areO(n) applications
-of++.
+The evaluation of **rev** takes *O(n²)* steps, where n is the length of the argument. There
+are *O(n)*  applications of **rev**; for each application of **rev** there are *O(n)* applications
+of **++**.
 
-Functionrevhas a number of useful properties, for example the following:
+Function **rev** has a number of useful properties, for example the following:
 
-Distribution: For any finite listsxsandys,
-rev (xs ++ ys) = rev ys ++ rev xs.
+Distribution: For any finite lists **xs** and **ys**,
+**rev (xs ++ ys) = rev ys ++ rev xs.**
 
-Inverse:For any finite listxs, rev (rev xs) = xs.
+Inverse:For any finite list **xs, rev (rev xs) = xs**.
 
 #### 5.4.3 Terminology
 
-The function definitions examined so far arebackward recursive. That is, for each case
+The function definitions examined so far are *backward recursive*. That is, for each case
 the recursive applications are embedded within another expression. Operationally,
 significant work is done after the recursive call returns.
 
-The function definitions examined so far are also linear recursive. That is, only
+The function definitions examined so far are also *linear recursive*. That is, only
 one recursive application of the function occurs in the expression for any leg. The
 advantage of a linear recursion versus a nonlinear one is that a linear recursion can
-be compiled into aloopin a straightforward manner.
+be compiled into a *loop* in a straightforward manner.
 
-Another recursive pattern isforward recursion. In a forward recursion, the outside
-expressions for cases are recursive applications of the function. Operationally, signif-
-icant work is done as the recursive calls are being made (e.g., in the argument list of
+Another recursive pattern is *forward recursion*. In a forward recursion, the outside
+expressions for cases are recursive applications of the function. Operationally, significant work is done as the recursive calls are being made (e.g., in the argument list of
 a recursive call).
 
-A function definition istail recursiveif it is both forward recursive and linear recursive.
+A function definition is tail recursive if it is both forward recursive and linear recursive.
 In a tail recursion the last action performed before the return is a recursive call.
 
 
@@ -2041,104 +2030,101 @@ Now let’s look at the problem of reversing a list again to see whether we can 
 a “more efficient” tail recursive solution.
 
 The common technique for converting a backward linear recursive definition likerev
-into a tail recursive definition is to use anaccumulating parameter(also called anac-
-cumulator) to build up the desired result incrementally. A possible definition follows:
+into a tail recursive definition is to use an *accumulating parameter* (also called anaccumulator) to build up the desired result incrementally. A possible definition follows:
 
 ```
 rev’ [] ys = ys
 rev’ (x:xs) ys = rev’ xs (x:ys)
 ```
-In this definition parameterysis the accumulating parameter. The head of the first
+In this definition parameter **ys** is the accumulating parameter. The head of the first
 argument becomes the new head of the accumulating parameter for the tail recursive
 call. The tail of the first argument becomes the new first argument for the tail
 recursive call.
 
-We know thatrev’terminates because, for each recursive application, the length of
-the first argument decreases toward the base case of[].
+We know that **rev’** terminates because, for each recursive application, the length of
+the first argument decreases toward the base case of [].
 
-We note thatrev xsis equivalent torev’ xs []. We will prove this in Section 11.6.
+We note that **rev** **xs** is equivalent to **rev’** xs []. We will prove this in Section 11.6.
 
 To define a single-argument replacement forrev, we can embed the definition ofrev’
-as anauxiliary function within the definition of a new functionreverse’. (This is
+as an *auxiliary* function within the definition of a new function **reverse’**. (This is
 similar to functionreversein the standard prelude.)
 
 ```
 reverse’ :: [a] -> [a]
 reverse’ xs = rev’ xs []
-where rev’ [] ys = ys
-rev’ (x:xs) ys = rev’ xs (x:ys)
+              where rev’ [] ys = ys
+              rev’ (x:xs) ys = rev’ xs (x:ys)
 ```
-Thewhereclause introduces thelocal definitionrev’that is only known within the
-right-hand side of the defining equation for the functionreverse’.
+The **where** clause introduces thelocal *definition* **rev’** that is only known with in the
+right-hand side of the defining equation for the function **reverse’**.
 
 How efficient is this function?
 
-The evaluation ofreverse’takesO(n) steps, wherenis the length of the argument.
-There is one application ofrev’for each element;rev’requires a single cons operation
+The evaluation of **reverse’** takes *O(n)* steps, where *n* is the length of the argument.
+There is one application of **rev’** for each element;**rev’** requires a single cons operation
 in the accumulating parameter.
 
-Where did the increase in efficiency come from? Each application ofrevapplies++,
-a linear time (i.e.,O(n) ) function. Inrev’, we replaced the applications of++by
-applications of cons, a constant time (i.e.,O(1) ) function.
+Where did the increase in efficiency come from? Each application of **rev** applies **++**,
+a linear time (i.e.,*O(n)* ) function. In **rev’** , we replaced the applications of **++** by
+applications of cons, a constant time (i.e.,*O(1)* ) function.
 
 
-#### 5.4.5 Local definitions (letandwhere)
+#### 5.4.5 Local definitions (let and where)
 
-Theletexpression is useful whenever a nested set of definitions is required. It has
+The let expression is useful whenever a nested set of definitions is required. It has
 the following syntax:
 
 ```
-letlocaldefinitionsinexpression
+let local_definitions in expression
 ```
-Aletmay be used anywhere that an expression my appear in a Gofer program.
+A **let** may be used anywhere that an expression my appear in a Gofer program.
 
-For example, consider a functionfthat takes a list of integers and returns a list of
+For example, consider a function **f** that takes a list of integers and returns a list of
 their squares incremented by one:
 
 ```
 f :: [Int] -> [Int]
 f [] = []
 f xs = let square a = a * a
-one = 1
-(y:ys) = xs
-in (square y + one) : f ys
+            one     = 1
+             (y:ys) = xs
+        in   (square y + one) : f ys
 ```
-- squarerepresents a function of one variable.
-- onerepresents a constant, that is, a function of zero variables.
-- (y:ys)represents a pattern match binding against argumentxsoff.
-- Reference toyoryswhen argumentxsoffis nil results in an error.
-- Local definitions square,one, y, andys all come into scope simultaneously;
-    their scope is the expression following theinkeyword.
+- **square** represents a function of one variable.
+- **one** represents a constant, that is, a function of zero variables.
+- **(y:ys)** represents a pattern match binding against argument **xs** of **f**.
+- Reference to **y** or **ys** when argument **xs** of **f** is nil results in an error.
+- Local definitions **square,one, y,** and **ys** all come into scope simultaneously;
+    their scope is the expression following the in keyword.
 - Local definitions may access identifiers in outer scopes (e.g.,xsin definition of
-    (y:ys)) and have definitions nested within themselves.
+    **(y:ys)**) and have definitions nested within themselves.
 - Local definitions may be recursive and call each other.
 
 
-Theletclause introduces symbols in a bottom-up manner: it introduces symbols
+The **let** clause introduces symbols in a bottom-up manner: it introduces symbols
 before they are used.
 
-Thewhereclause is similar semantically, but it introduces symbols in a top-down
-manner: the symbols are used and then defined in awherethat follows.
+The **where** clause is similar semantically, but it introduces symbols in a top-down
+manner: the symbols are used and then defined in a **where** that follows.
 
-Thewhereclause is more versatile than thelet. It allows the scope of local definitions
-to span over several guarded equations while alet’s scope is restricted to the right-
-hand side of one equation.
+The **where** clause is more versatile than the **let**. It allows the scope of local definitions
+to span over several guarded equations while a **let**’s scope is restricted to the righthand side of one equation.
 
 For example, consider the definition:
 
 ```
 g :: Int -> Int
 g n | (n ‘mod‘ 3) == x = x
-| (n ‘mod‘ 3) == y = y
-| (n ‘mod‘ 3) == z = z
-where x = 0
-y = 1
-z = 2
+    | (n ‘mod‘ 3) == y = y
+    | (n ‘mod‘ 3) == z = z
+                       where x = 0
+                             y = 1
+                             z = 2
 ```
-- The scope of thiswhereclause is overall three guardsand their respective right-
-    hand sides. (Note that thewherebegins in the same column as the=rather
-    than to the right as inrev’.)
-- Note the use of the modulo functionmodas an infix operator. The backquotes
+- The scope of this **where** clause is over *all three guards* and their respective righthand sides. (Note that the **where** begins in the same column as the = rather
+    than to the right as in **rev’**.)
+- Note the use of the modulo function **mod** as an infix operator. The backquotes
     (‘) around a function name denotes the infix use of the function.
 
 
@@ -2154,7 +2140,7 @@ fib 0 = 0
 fib 1 = 1
 fib (n+2) = fib n + fib (n+1)
 ```
-This function definition uses then+2pattern to match natural numbers at least 2.
+This function definition uses the **n+2** pattern to match natural numbers at least 2.
 
 An equivalent, but more efficient, definition uses forward recursion with two additional
 parameters to avoid recomputing Fibonacci numbers:
@@ -2162,25 +2148,25 @@ parameters to avoid recomputing Fibonacci numbers:
 ```
 fib’ :: Int -> Int
 fib’ n = fib’’ n 0 1
-where fib’’ 0 p q = p
-fib’’ (n+1) p q = fib’’ n q (p+q)
+         where fib’’ 0 p q = p
+               fib’’ (n+1) p q = fib’’ n q (p+q)
 ```
-Asngets large,fib’is much more efficient thanfib.
+As **n** gets large,**fib’** is much more efficient than **fib**.
 
-? fib 10
-55
-(354 reductions, 446 cells)
-? fib’ 10
-55
-(22 reductions, 49 cells)
-? fib 20
-6765
-(43782 reductions, 54733 cells)
-? fib’ 20
-6765
-(42 reductions, 91 cells)
+? fib 10  
+55  
+(354 reductions, 446 cells)  
+? fib’ 10  
+55  
+(22 reductions, 49 cells)  
+? fib 20  
+6765  
+(43782 reductions, 54733 cells)  
+? fib’ 20  
+6765  
+(42 reductions, 91 cells)  
 
-Evaluation offib ntakes O(fib(n)) steps (i.e., reductions); fib’ n takesO(n)
+Evaluation of **fib** **n** takes *O(fib(n))*  steps (i.e., reductions); **fib’ n** takes *O(n)*
 steps.
 
 
@@ -2188,33 +2174,31 @@ steps.
 
 #### 5.5.1 Element selection (!!)
 
-The list selection operator!! in the expression xs!!nselects elementnof listxs
+The list selection operator !! in the expression **xs!!n** selects element **n** of list **xs**
 where the head is in position 0. It is defined in the standard prelude as follows:
 
 ```
-infixl 9 !! -- list selection
+infixl 9 !!                -- list selection
 (!!) :: [a] -> Int -> a
 (x:) !! 0 = x
 (:xs) !! (n+1) = xs !! n
 ```
-#### 5.5.2 List-breaking operations (takeanddrop)
+#### 5.5.2 List-breaking operations (take and drop)
 
-Two additional useful functions from the standard prelude aretakeanddrop. Func-
-tiontaketakes a numbernand a list and returns the firstnelements of the list.
-Functiondroptakes a numbernand a list and returns the list remaining after the
-firstnelements are removed.
+Two additional useful functions from the standard prelude are **take** and **drop**. Function **take** takes a number **n**  and a list and returns the first **n** elements of the list.
+Function **drop** takes a number **n** and a list and returns the list remaining after the
+first **n** elements are removed.
 
 ```
 take :: Int -> [a] -> [a]
-take 0 = [] -- take.1
-take [] = [] -- take.2
-take (n+1) (x:xs) = x : take n xs -- take.3
-```
-```
+take 0 = []                          -- take.1
+take [] = []                         -- take.2
+take (n+1) (x:xs) = x : take n xs    -- take.3
+
 drop :: Int -> [a] -> [a]
-drop 0 xs = xs -- drop.1
-drop [] = [] -- drop.2
-drop (n+1) (:xs) = drop n xs -- drop.3
+drop 0 xs = xs                 -- drop.1
+drop [] = []                   -- drop.2
+drop (n+1) (:xs) = drop n xs   -- drop.3
 ```
 Each of these functions has two arguments, a natural number and a list. But, when
 either the first argument is 0 or the second argument is[], it is not necessary to
@@ -2223,34 +2207,34 @@ consider the value of the other argument in determining the result.
 Thus each of these functions has three cases: when the first argument is zero, when
 the second argument is nil, and when neither is the case.
 
-For the recursive applications oftakeanddrop, both arguments decrease in size.
+For the recursive applications of **take** and **drop**, both arguments decrease in size.
 Thus evaluation eventually terminates.
 
-Examples: take 2 "oxford" =⇒ "ox"
-drop 2 "oxford" =⇒ "ford"
+Examples: **take 2 "oxford" =⇒ "ox"**  
+            **drop 2 "oxford" =⇒ "ford"**
 
-For all naturalsnand finite listsxs, functionstakeanddropsatisfy the following
-property, which we will prove in Section 11.5:take n xs ++ drop n xs = xs
+For all naturals **n** and finite lists **xs**, functions **take** and **dropv satisfy the following
+property, which we will prove in Section 11.5: **take n xs ++ drop n xs = xs**
 
 
 #### 5.5.3 List-combining operations (zip)
 
-Another useful function in the standard prelude iszip, which takes two lists and
+Another useful function in the standard prelude is **zip**, which takes two lists and
 returns a list of pairs of the corresponding elements. That is, the function fastens the
-lists together like a zipper. It’s definition is similar tozip’given below:
+lists together like a zipper. It’s definition is similar to **zip’** given below:
 
 ```
 zip’ :: [a] -> [b] -> [(a,b)]
 zip’ (x:xs) (y:ys) = (x,y) : zip’ xs ys -- zip.1
 zip’ = [] -- zip.1
 ```
-Functionzipapplies atuple-formingoperation to the corresponding elements of two
+Function **zip** applies a *tuple-forming* operation to the corresponding elements of two
 lists. It stops the recursion when either list argument becomes nil.
 
-Example:zip [1,2,3] "oxford" =⇒ [(1,’o’),(2,’x’),(3,’f’)]
+Example: **zip [1,2,3] "oxford" =⇒ [(1,’o’),(2,’x’),(3,’f’)]**
 
-The standard prelude includes versions ofzipthat handle the tuple-formation for up
-to seven input lists: zip3···zip7.
+The standard prelude includes versions of **zip** that handle the tuple-formation for up
+to seven input lists: **zip3···zip7.**
 
 ### 5.6 Rational Arithmetic Package
 
@@ -2258,32 +2242,32 @@ As a larger example, suppose we want to implement a group of Gofer functions to 
 rational number arithmetic [2].
 
 The first thing we must do is determine how to represent the rational numbers in
-Gofer. In mathematics we usually write rational numbers in the formxywherey 6 = 0.
-In Gofer a straightforward way to representxyis by a tuple(x,y).
+Gofer. In mathematics we usually write rational numbers in the form x/y where y != 0.
+In Gofer a straightforward way to represent x/y is by a tuple (x,y).
 
 Thus we define a type synonymRatto denote this type.
 
 ```
 type Rat = (Int,Int)
 ```
-For example,(1,7),(-1,-7),(3,21), and(168,1176)all represent^17.
+For example,**(1,7),(-1,-7),(3,21),** and **(168,1176)** all represent 1/7.
 
 As with any value that can be expressed in many different ways, it is useful to define
-a singlecanonical (ornormal) form for representing values in the rational number
-typeRat.
+a single *canonical (or normal)* form for representing values in the rational number
+type **Rat**.
 
-It is convenient for us to choose the form(x,y)wherey > 0andxandyare relatively
+It is convenient for us to choose the form **(x,y)** where **y > 0** and **x** and **y** are relatively
 prime. (That is, they have no common divisors except 1.) We also represent zero
-canonically by(0,1).
+canonically by (0,1).
 
-This representation has the advantage that the magnitudes of the numeratorxand
-denominatoryare kept small, thus reducing problems with overflow arising during
+This representation has the advantage that the magnitudes of the numerator **x** and
+denominator **y** are kept small, thus reducing problems with overflow arising during
 arithmetic operations.
 
 We require that the arithmetic operations in the package return values in the canonical
 form and that the package provide a function to convert (or normalize) rational
-numbers to this form. Thus we provide a functionnormRatthat takes a Ratand
-returns theRatin canonical form that has the same value as the argument.
+numbers to this form. Thus we provide a function **normRat** that takes a **Rat** and
+returns the **Rat** in canonical form that has the same value as the argument.
 
 
 An appropriate definition is shown below.
@@ -2291,47 +2275,47 @@ An appropriate definition is shown below.
 ```
 normRat :: Rat -> Rat
 normRat (x,0) = error ("Invalid rational number (in normRat) "
-++ showRat (x,0) ++ "\n")
+                        ++ showRat (x,0) ++ "\n")
 normRat (0,y) = (0,1)
 normRat (x,y) = (a/d,b/d)
-where a = (signum y) * x
-b = abs y
-d = gcd a b
+                where a = (signum y) * x
+                      b = abs y
+                      d = gcd a b
 ```
-This function uses functionssignum,abs, andgcdfrom the standard prelude to get
+This function uses functions **signum**,**abs**, and **gcd** from the standard prelude to get
 the sign (as -1, 0, or 1), absolute value, and greatest common divisor, respectively. It
-also uses the functionerrorto denote an error termination of the program.
+also uses the function **error** to denote an error termination of the program.
 
-The function errorfrom the standard prelude causes evaluation of the program
+The function **error** from the standard prelude causes evaluation of the program
 to halt and the argument string to be printed. This function is implemented as a
-primitive operation built into the Gofer interpreter. InnormRat, it is used to print
+primitive operation built into the Gofer interpreter. In **normRat**, it is used to print
 an error message when an invalid rational number representation is discovered. The
-errorcall uses functionshowRatdefined later.
+**error** call uses function **showRat** defined later.
 
-The functionsignumfrom the standard prelude takes a number (an object in class
-Num) and returns the integer-1, 0 , or 1 when the number is negative, zero, or positive,
-respectively. (Numbers are also ordered and hence in classOrd.)
+The function **signum** from the standard prelude takes a number (an object in class
+Num) and returns the integer -1, 0 , or 1 when the number is negative, zero, or positive,
+respectively. (Numbers are also ordered and hence in class **Ord**.)
 
 ```
 signum :: (Num a, Ord a) => a -> Int
 signum n | n == 0 = 0
-| n > 0 = 1
-| n < 0 = -1
+         | n > 0 = 1
+         | n < 0 = -1
 ```
-The functiongcd from the standard prelude takes two integers and returns their
+The function **gcd** from the standard prelude takes two integers and returns their
 “greatest common divisor”.
 
 ```
 gcd :: Int -> Int -> Int
 gcd x y = gcd’ (abs x) (abs y)
-where gcd’ x 0 = x
-gcd’ x y = gcd’ y (x ‘rem‘ y)
+          where gcd’ x 0 = x
+                gcd’ x y = gcd’ y (x ‘rem‘ y)
 ```
-(Standard prelude operationremreturns the remainder from dividing its first operand
-by its second. Remember that enclosing the function name in backquotes as in‘rem‘
+(Standard prelude operation **rem** returns the remainder from dividing its first operand
+by its second. Remember that enclosing the function name in backquotes as in **‘rem‘**
 allows a two-argument function to be applied in an infix form.)
 
-The package must provide the usual arithmetic operations for values of typeRat:
+The package must provide the usual arithmetic operations for values of type **Rat**:
 negation, addition, subtraction, multiplication, and division. We can implement these
 using the knowledge of arithmetic on fractions that we learned in elementary school.
 The arithmetic functions must return their results in canonical form.
@@ -2349,10 +2333,10 @@ mulRat (a,b) (c,d) = normRat (a*c, b*d)
 divRat (a,b) (c,d) = normRat (a*d, b*c)
 ```
 The package must also provide the usual comparison operations for values of type
-Rat. To compare two rational numbers, we express their values in terms of a common
+**Rat**. To compare two rational numbers, we express their values in terms of a common
 denominator and then compare the numerators using the integer comparisons.
 
-We can define the equality comparison functioneqRatas follows. The other rational
+We can define the equality comparison function **eqRat** as follows. The other rational
 number comparisons are the same except that the corresponding integer comparisons
 are used.
 
@@ -2361,17 +2345,16 @@ eqRat :: Rat -> Rat -> Bool
 eqRat (a,0) (c,d) = errRat (a,0)
 eqRat (a,b) (c,0) = errRat (c,0)
 eqRat (a,b) (c,d) = (a*d == b*c)
-where errRat (x,y) = error ("Invalid rational "
-++ " number (in eqRat) "
-++ showRat (x,y) ++ "\n")
+                  where errRat (x,y) = error ("Invalid rational "
+                                       ++ " number (in eqRat) "
+                                       ++ showRat (x,y) ++ "\n")
 ```
-Note that the keywordwherebegins in the same column as the=in the defining
+Note that the keyword **where** begins in the same column as the = in the defining
 equations. The positioning of this keyword in the same column as=, or to its left,
-indicates that the scope of the definition oferrRatextends over all three legs of the
+indicates that the scope of the definition of **errRat** extends over all three legs of the
 definition.
 
-Finally, to allow rational numbers to be displayed in the normal fractional represen-
-tation, we include function showRatin the package. Functionshow, found in the
+Finally, to allow rational numbers to be displayed in the normal fractional representation, we include function **showRat** in the package. Function **show**, found in the
 standard prelude, is used here to convert an integer to the usual string format.
 
 ```
@@ -2391,86 +2374,72 @@ The following exercises call for the implementation of Gofer programs. For each
 function, informally argue that all the functions terminate. Take care that special
 cases and error conditions are handled in a reasonable way.
 
-1. Write a Gofer functionxorthat takes two Booleans and returns the “exclusive-
-    or” of the two values. An exclusive-or operation returnsTruewhen exactly one
-    of its arguments isTrueand returnsFalseotherwise.
-2. Write a Gofer functionmultthat takes two natural numbers and returns their
-    product. The function must not use the multiplication (*) or division (/) oper-
-    ators.
+1. Write a Gofer function **xor** that takes two Booleans and returns the “exclusive-or” of the two values. An exclusive-or operation returns **True** when exactly one
+    of its arguments is **True** and returns **False** otherwise.
+2. Write a Gofer function **mult** that takes two natural numbers and returns their
+    product. The function must not use the multiplication (*) or division (/) operators.
 3. Write a Gofer function to compute the maximum value in a nonempty list of
     integers. Generalize the function by making it polymorphic, accepting a value
     from any ordered type.
-4. Write a Gofer functionadjpairsthat takes a list and returns the list of all pairs
-    of adjacent elements. For example, adjpairs [2,1,11,4] returns [(2,1),
-    (1,11), (11,4)].
-5. Write a Gofer functionmeanthat takes a list of integers and returns the mean
+4. Write a Gofer function **adjpairs** that takes a list and returns the list of all pairs
+    of adjacent elements. For example, **adjpairs [2,1,11,4]** returns **[(2,1),(1,11), (11,4)]**.
+5. Write a Gofer function **mean** that takes a list of integers and returns the mean
     (i.e., average) value for the list.
-6. Hailstone functions [6, 9].
-    (a) Write a Gofer functionhailstoneto implement the following function:
+6. Hailstone functions [6, 9].(a) Write a Gofer function hailstoneto implement the following function:
 
 ```
-hailstone(n) =
+hailstone(n) ={1 ,                  for n= 1
+              {hailstone(n/2),      for n > 1 ,n even
+              {hailstone(3∗n+ 1),   for n > 1 ,n odd
 ```
-```
-
-
-
-```
-```
-1 , forn= 1
-hailstone(n/2), forn > 1 ,neven
-hailstone(3∗n+ 1), forn > 1 ,nodd
-```
-```
-Note that an application of thehailstone function to the argument 3
+Note that an application of the **hailstone** function to the argument 3
 would result in the following “sequence” of “calls” and would ultimately
 return the result 1.
-```
+
 ```
 hailstone 3
-hailstone 10
-hailstone 5
-hailstone 16
-hailstone 8
-hailstone 4
-hailstone 2
-hailstone 1
-```
-```
-For further thought: What is the domain of thehailstonefunction?
+  hailstone 10
+    hailstone 5
+      hailstone 16
+        hailstone 8
+          hailstone 4
+             hailstone 2
+               hailstone 1
 ```
 
-```
-(b) Write a Gofer function that computes the results of thehailstonefunction
+For further thought: What is the domain of thehailstonefunction?
+
+
+(b) Write a Gofer function that computes the results of the **hailstone** function
 for each element of a list of positive integers. The value returned by the
-hailstonefunction for each element of the list should be displayed.
-(c) Modify thehailstonefunction to return the function’s “path.” That is,
+**hailstone** function for each element of the list should be displayed.
+(c) Modify the **hailstone** function to return the function’s “path.” That is,
 each application of this path function should return a list of integers instead
 of a single integer. The list returned should consist of the arguments
-of the successive calls to the hailstonefunction necessary to compute
-the result. For example, thehailstone 3example above should return
-[3,10,5,16,8,4,2,1].
-```
+of the successive calls to the **hailstone** function necessary to compute
+the result. For example, the **hailstone** 3 example above should return
+**[3,10,5,16,8,4,2,1]**.
+
 7. Number base conversion.
 
-```
-(a) Write a Gofer functionnatToBinthat takes a natural number and returns
+
+(a) Write a Gofer function **natToBin** that takes a natural number and returns
 its binary representation as a list of 0 ’s and 1 ’s with the most significant
-digit at the head. For example,natToBin 23returns[1,0,1,1,1]. (Note:
-Standard prelude functionremreturns the remainder from dividing its first
+digit at the head. For example,**natToBin 23** returns **[1,0,1,1,1]**. (Note:
+Standard prelude function **rem** returns the remainder from dividing its first
 argument by its second. Enclosing the function name in backquotes as in
-‘rem‘allows a two-argument function to be applied in an infix form.)
-(b) GeneralizenatToBinto functionnatToBasethat takes a baseb(b ≥ 2 )
-and a natural number and returns the basebrepresentation of the natural
+**‘rem‘** allows a two-argument function to be applied in an infix form.)
+(b) Generalize **natToBinto**  function **natToBase** that takes a base **b(b ≥ 2 )**
+and a natural number and returns the base **b** representation of the natural
 number as a list of integer digits with the most significant digit at the
-head. For example,natToBase 5 42returns[1,3,2].
-(c) Write Gofer functionbaseToNat, the inverse of thenatToBasefunction.
-For any baseb(b ≥ 2 ) and natural numbern:
-baseToNat b (natToBase b n) = n
-```
-8. Write a Gofer function mergethat takes two increasing lists of integers and
+head. For example,**natToBase 5 42** returns **[1,3,2]**.
+(c) Write Gofer function **baseToNat**, the inverse of thenatToBasefunction.
+For any base **b(b ≥ 2 )** and natural number **n**:
+               **baseToNat b (natToBase b n) = n**
+
+8. Write a Gofer function **merge** that takes two increasing lists of integers and
     merges them into a single increasing list (without any duplicate values). A list
-    isincreasingif every element is less than (<) its successors. Successor means an
+    is *increasing* if every element is less than (<) its successors. Successor means an
     element that occurs later in the list, i.e., away from the head. Generalize the
     function by making it polymorphic.
 9. Design a package of set operations. Choose a Gofer representation for sets.
@@ -2481,182 +2450,166 @@ baseToNat b (natToBase b n) = n
 
 10. Bag operation package.
 
-```
+
 A bag (or multiset) is a collection of elements; each element may occur one or
 more times in the bag. Choose an efficient representation for bags. Each bag
 should probably have a unique representation.
 Define a package of bag operations, including the following functions. For the
 functions that return bags, make sure that a valid representation of the bag is
 returned.
-```
-```
-listToBag takes a list of elements and returns a bag containing exactly those
+
+
+**listToBag** takes a list of elements and returns a bag containing exactly those
 elements. The number of occurrences of an element in the list and in the
 resulting bag is the same.
-bagToList takes a bag and returns a list containing exactly the elements oc-
-curring in the bag. The number of occurrences of an element in the bag
+**bagToList** takes a bag and returns a list containing exactly the elements occurring in the bag. The number of occurrences of an element in the bag
 and in the resulting list is the same.
-bagToSet takes a bag and returns a list containing exactly thesetof elements
+**bagToSet** takes a bag and returns a list containing exactly the *set* of elements
 contained in the bag. Each element occurring one or more times in the
 bag will occur exactly once in the list returned.
-bagEmpty takes a bag and returnsTrueif the bag is empty andFalseotherwise.
-bagCard takes a bag and returns its cardinality (i.e., the total number of oc-
-currences of all elements).
-bagElem takes an element and a bag and returnsTrueif the element occurs in
-the bag andFalseotherwise.
-bagOccur takes an element and a bag and returns the number of times the
+**bagEmpty** takes a bag and returns **True** if the bag is empty and **False** otherwise.
+**bagCard** takes a bag and returns its cardinality (i.e., the total number of occurrences of all elements).
+**bagElem** takes an element and a bag and returns **True** if the element occurs in
+the bag and **False** otherwise.
+**bagOccur** takes an element and a bag and returns the number of times the
 element occurs in the bag.
-bagEqual takes two bags and returnsTrueif the two bags are equal (i.e., the
-same elements and same number of occurrences of each) andFalseother-
-wise.
-bagSubbag takes two bags and returnsTrueif the first is a subbag of the second
-andFalseotherwise. X is a subbag of Y if every element of X occurs in
-Y at least as many times as it does in X.
-bagUnion takes two bags and returns their bag union. The union of bags X
-and Y contains all elements that occur in either X or Y; the number of oc-
-currences of an element in the union is the number in X or in Y, whichever
+**bagEqual** takes two bags and returns **True** if the two bags are equal (i.e., the
+same elements and same number of occurrences of each) and **False** otherwise.
+**bagSubbag** takes two bags and returns **True** if the first is a subbag of the second
+and **False** otherwise. *X* is a subbag of *Y* if every element of *X* occurs in
+*Y* at least as many times as it does in *X*.
+**bagUnion** takes two bags and returns their bag union. The union of bags *X*
+and *Y* contains all elements that occur in either *X* or *Y*; the number of occurrences of an element in the union is the number in *X* or in *Y*, whichever
 is greater.
-bagIntersect takes two bags and returns their bag intersection. The intersec-
-tion of bags X and Y contains all elements that occur in both X and Y;
+**bagIntersect** takes two bags and returns their bag intersection. The intersection of bags *X* and *Y* contains all elements that occur in both *X* and *Y*;
 the number of occurrences of an element in the intersection is the number
-in X or in Y, whichever is lesser.
-```
+in *X* or in *Y*, whichever is lesser.
 
-```
-bagSum takes two bags and returns their bag sum. The sum of bags X and Y
-contains all elements that occur in X or Y; the number of occurrences of
-an element is the sum of the number of occurrences in X and Y.
-bagDiff takes two bags and returns the bag difference, first argument minus
-the second. The difference of bags X and Y contains all elements of X that
-occur in Y fewer times; the number of occurrences of an element in the
-difference is the number of occurrences in X minus the number in Y.
-bagInsert takes an element and a bag and returns the bag with the element
+
+
+**bagSum** takes two bags and returns their bag sum. The sum of bags *X* and *Y*
+contains all elements that occur in *X* or *Y*; the number of occurrences of
+an element is the sum of the number of occurrences in *X* and *Y*.
+**bagDiff** takes two bags and returns the bag difference, first argument minus
+the second. The difference of bags *X* and *Y* contains all elements of *X* that
+occur in *Y* fewer times; the number of occurrences of an element in the
+difference is the number of occurrences in *X* minus the number in *Y*.
+**bagInsert**  takes an element and a bag and returns the bag with the element
 inserted. Bag insertion either adds a single occurrence of a new element
 to the bag or increases the number of occurrences of an existing element
 by one.
-bagDelete takes an element and a bag and returns the bag with the element
+**bagDelete** takes an element and a bag and returns the bag with the element
 deleted. Bag deletion either removes a single occurrence of the element
 from the bag or decreases the number of occurrences of the element by
 one.
-```
+
 11. Unbounded precision arithmetic package for natural numbers (i.e., nonnegative
     integers).
-       (a) Define a type synonym BigNatto represent these unbounded precision
-          natural numbers as lists of Int. Let each element of the list denote a
-          decimal digit of the “big natural” number represented, with theleastsig-
-          nificant digit at the head of the list and the remaining digits given in order
-          ofincreasingsignificance. For example, the integer value 22345678901 is
-          represented as[1,0,9,8,7,6,5,4,3,2,2]. Use the following “canonical”
+       (a) Define a type synonym **BigNat** to represent these unbounded precision
+          natural numbers as lists of **Int**. Let each element of the list denote a
+          decimal digit of the “big natural” number represented, with the *least* significant digit at the head of the list and the remaining digits given in order
+          of *increasing* significance. For example, the integer value 22345678901 is
+          represented as **[1,0,9,8,7,6,5,4,3,2,2]**. Use the following “canonical”
           representation: the value 0 is represented by the list [0] and positive
-          numbers by a list without “leading” 0 digits (i.e., 126 is[6,2,1] not
-          [6,2,1,0,0]). You may use the nil list[ ]to denote an error value.
+          numbers by a list without “leading” 0 digits (i.e., **126** is **[6,2,1]** not
+          **[6,2,1,0,0]**). You may use the nil list[ ]to denote an error value.
           Define a package of basic arithmetic operations, including the following
-          functions. Make sure thatBigNatvalues returned by these functions are
+          functions. Make sure that **BigNat** values returned by these functions are
           in canonical form.
-          intToBig takes a nonnegativeIntand returns theBigNatwith the same
+          **intToBig** takes a nonnegative **Int** and returns the **BigNat** with the same
              value.
-          strToBig takes aStringcontaining the value of the number in the “usual”
-             format (i.e., decimal digits, left to right in order ofdecreasingsignifi-
-             cance with zero or more leading spaces, but with no spaces or punctu-
-             ation embedded within the number) and returns theBigNatwith the
-             same value.
-          bigToStr takes aBigNatand returns aStringcontaining the value of the
-             number in the “usual” format (i.e., left to right in order ofdecreasing
+          **strToBig**  takes a **String** containing the value of the number in the “usual”
+             format (i.e., decimal digits, left to right in order of *decreasing* significance with zero or more leading spaces, but with no spaces or punctuation embedded within the number) and returns the **BigNat** with the same value.
+          **bigToStr** takes a **BigNat** and returns a **String** containing the value of the
+             number in the “usual” format (i.e., left to right in order of *decreasing*
              significance with no spaces or punctuation).
 
 
-```
-bigComp takes twoBigNats and returns theIntvalue-1if the value of
+
+**bigComp** takes two **BigNats** and returns the **Int** value -1 if the value of
 the first is less than the value of the second, the value 0 if they are
 equal, and the value 1 if the first is greater than the second.
-bigAdd takes twoBigNats and returns their sum as aBigNat.
-bigSub takes twoBigNats and returns their difference as aBigNat, first
+**bigAdd** takes two **BigNats** and returns their sum as a **BigNat**.
+**bigSub** takes two **BigNats** and returns their difference as a **BigNat**, first
 argument minus the second.
-bigMult takes twoBigNats and returns their product as aBigNat.
+**bigMult** takes two **BigNats** and returns their product as a **BigNat**.
 (b) Use the package to generate a table of factorials for the naturals 0 through
-```
-25. Print the values from the table in tworight-justifiedcolumns, with the
+25. Print the values from the table in two *right-justified* columns, with the
 number on the left and its factorial on the right. (Allow about 30 columns
 for25!.)
 (c) Use the package to generate a table of Fibonacci numbers for the naturals
 0 through 50.
 (d) Generalize the package to handle signed integers. Add the following new
 function:
-bigNeg returns the negation of itsBigNatargument.
+**bigNeg** returns the negation of its **BigNat** argument.
 (e) Add the following functions to the package:
-bigDiv takes twoBigNats and returns, as aBigNat, the quotient from
+**bigDiv** takes two **BigNats** and returns, as a **BigNat**, the quotient from
 dividing the first argument by the second.
-bigRem takes twoBigNats and returns, as aBigNat, the remainder from
+**bigRem** takes two **BigNats** and returns, as a **BigNat**, the remainder from
 dividing the first argument by the second.
 12. Define the following set of text-justification functions. You may want to use
-standard prelude functions liketake,drop, andlength.
+standard prelude functions like **take**, **drop**, and **length**.
 
-```
-spaces’ n returns a string of lengthncontaining only space characters (i.e.,
+
+**spaces’ n** returns a string of length **n** containing only space characters (i.e.,
 the character’ ’).
-left’ n xs returns a string of lengthnin which the stringxsbegins at the
-head (i.e., left end). Examples: left’ 3 "ab" yields"ab "; left’ 3
-"abcd"yields"abc".
-right’ n xs returns a string of lengthnin which the stringxsends at the
-tail (i.e., right end). Examples: right’ 3 "bc"yields" bc";right’ 3
-"abcd"yields"bcd".
-center’ n xs returns a string of lengthnin which the stringxsis approxi-
-mately centered. Example:center’ 4 "bc"yields" bc ".
-```
+**left’ n xs** returns a string of lengthnin which the stringxsbegins at the
+head (i.e., left end). Examples: **left’ 3 "ab"** yields **"ab "; left’ 3**
+**"abcd"** yields **"abc"**.
+**right’ n xs** returns a string of length **n** in which the string **xs** ends at the
+tail (i.e., right end). Examples: **right’ 3 "bc"** yields **" bc";right’ 3**
+**"abcd"** yields **"bcd"**.
+**center’ n xs** returns a string of length **n** in which the string **xs** is approximately centered. Example:**center’ 4 "bc"** yields **" bc "**.
 
-13. Consider simple mathematical expressions consisting of integer constants, vari-
-    able names, parentheses, and the binary operators +, -, *, and /. For the
-    purposes of this exercise, anexpression is a string that satisfies the following
+
+13. Consider simple mathematical expressions consisting of integer constants, variable names, parentheses, and the binary operators *+, -, *,* and */*. For the
+    purposes of this exercise, an *expression* is a string that satisfies the following
     (extended) BNF grammar and lexical conventions :
 
 ```
-expression::= term{addOp term}
-term ::= factor{mulOp factor}
-factor ::= number
-|identifier
-|(expression)
+expression  ::= term{addOp term}
+term        ::= factor{mulOp factor}
+factor      ::= number
+                |identifier
+                 |(expression)
 ```
-- The characters in an input string are examined left to right to form “lex-
-    ical tokens”. The tokens of the expression “language” consist ofaddOps,
-    mulOps,identifiers,numbers, and left and right parentheses.
+
+- The characters in an input string are examined left to right to form “lexical tokens”. The tokens of the expression “language” consist of *addOps ,mulOps,identifiers,numbers*, and left and right parentheses.
 - An expression may contain space characters at any position except within
     a lexical token.
-- AnaddOptoken is either a “+” or a “-”; amulOptoken is either a “*” or
+- An *addOp* token is either a “+” or a “-”; a *mulOp* token is either a “*” or
     a “/”.
-- Anidentifier is a string of one or more contiguous characters such that
-    the leftmost character is a letter and the remaining characters are ei-
-    ther letters, digits, or underscore characters. Examples: “Hi1”, “lo23 1 ”,
-    “thisis 2 long ”
-- Anumber is a string of one or more contiguous characters such that all
-    (including the leftmost) are digits. Examples: “ 1 ”, “ 23456711 ”
-- Allidentifierandnumbertokens extend as far to the right as possible. For
-    example, consider the string “ A123 12B3+2 ) ”. (Note the space and
-    right parenthesis characters). This string consists of the six tokens “A123”,
-    “ 12 ”, “B3”, “+”, “ 2 ”, and “)”.
+- An *identifier* is a string of one or more contiguous characters such that
+    the leftmost character is a letter and the remaining characters are either letters, digits, or underscore characters. Examples: **“Hi1”, “lo23 1 ”,“thisis 2 long ”**
+- A *number* is a string of one or more contiguous characters such that all
+    (including the leftmost) are digits. Examples: **“ 1 ”, “ 23456711 ”**
+- All *identifier* and *number* tokens extend as far to the right as possible. For
+    example, consider the string “ **A123 12B3+2** ) ”. (Note the space and
+    right parenthesis characters). This string consists of the six tokens “**A123**”,
+    “ **12** ”, “**B3**”, “**+**”, “ **2**”, and “)”.
 
-```
-Define a Gofer functionvalidthat takes aStringand returnsTrueif the string
-is anexpressionas described above and returnsFalseotherwise.
+
+Define a Gofer function **valid** that takes a **String** and returns **True** if the string
+is an *expression* as described above and returns **False** otherwise.
 Hint: If you need to return more than one value from a function, you can do so
 by returning a tuple of those values. This tuple can be decomposed by standard
-prelude functions such asfstandsnd.
-Hint: Use of thewhereorletfeatures can simplify many functions. You may
-find standard prelude functions such asspan,isSpace,isDigit,isAlpha, and
-isAlphanumuseful.
+prelude functions such as **fst** and **snd**.
+Hint: Use of the **where** or **let** features can simplify many functions. You may
+find standard prelude functions such as **span,isSpace,isDigit,isAlpha**, and
+**isAlphanum** useful.
 Hint: You may want to consider organizing your program as a simple recursive
 descent recognizer for the expression language.
-```
 
-14. Extend the mathematical expression recognizer of the previous exercise toeval-
-    uateinteger expressions with the given syntax. The four binary operations have
-    their usual meanings.
-    Define a function eval e st that evaluates expressioneusing symbol table
-    st. If the expressioneis syntactically valid,evalreturns a pair(True,val)
-    wherevalis the value ofe. Ifeis not valid,evalreturns(False,0).
-    The symbol table consists of a list of pairs, in which the first component of a
-    pair is the variable name (a string) and the second is the variable’s value (an
-    integer).
-    Example:eval "(2+x) * y" [("y",3),("a",10),("x",8)]yields(True,30).
+
+14. Extend the mathematical expression recognizer of the previous exercise to *evaluate* integer expressions with the given syntax. The four binary operations have
+their usual meanings.  
+Define a function **eval e st** that evaluates expression **e** using symbol table
+**st**. If the expression **e** is syntactically valid, **eval** returns a pair **(True,val)**
+where **val** is the value of **e**. If **e** is not valid,**eval** returns(False,0).
+The symbol table consists of a list of pairs, in which the first component of a
+pair is the variable name (a string) and the second is the variable’s value (an
+integer).
+Example:**eval "(2+x) * y" [("y",3),("a",10),("x",8)]yields(True,30).**
 
 
 ## 6 HIGHER-ORDER FUNCTIONS
@@ -2873,12 +2826,12 @@ sumlist’ :: [Int] -> Int
 sumlist’ xs = foldr (+) 0 xs
 ```
 As further examples, consider the folding of the Boolean operators&&(“and”) and
-||(“or”) over lists of Boolean values:
+| |(“or”) over lists of Boolean values:
 
 ```
 and’, or’ :: [Bool] -> Bool
 and’ xs = foldr (&&) True xs
-or’ xs = foldr (||) False xs
+or’ xs = foldr (| |) False xs
 ```
 Although their definitions look different,and’andor’are actually identical to func-
 tionsandandorin the standard prelude.
@@ -2979,17 +2932,17 @@ Strict examples: Functionrev(discussed in Section 5.4.2) is strict in its one ar
 The arithmetic operations (e.g.,+) are strict in both arguments.
 
 Nonstrict example: Operation++is strict in its first argument, but nonstrict in its
-second argument. Boolean functions&&and||from the standard prelude are also
+second argument. Boolean functions && and| |from the standard prelude are also
 strict in their first arguments and nonstrict in their second arguments.
 
 ```
-(&&), (||) :: Bool -> Bool -> Bool
+(&&), (| |) :: Bool -> Bool -> Bool
 False && x = False -- second argument not evaluated
 True && x = x
 ```
 ```
-False || x = x
-True || x = True -- second argument not evaluated
+False   x = x
+True | | x = True -- second argument not evaluated
 ```
 
 ### 6.5 Currying and Partial Application
@@ -4649,7 +4602,7 @@ main = readChan stdin exit
 ```
 prompter :: [String] -> Dialogue
 prompter kbls = appendChan stdout pmsg exit
-(if kbls == [] || fn == "." then done
+(if kbls == [] | | fn == "." then done
 else showfile fn cont)
 where pmsg = "Enter File Name: "
 (fn:fns) = kbls
@@ -4752,17 +4705,17 @@ sqzlines = unlines. map squeeze. lines
 squeeze :: String -> String
 squeeze [] = []
 squeeze xs
-| fin == [] || hd == ’!’ = init ++ "! "
+| fin == [] | | hd == ’!’ = init ++ "! "
 | hd == ’:’ = init ++ ": " ++ newfin fin’
 where (init,fin) = break bp xs
-bp x = (x == ’!’ || x == ’:’)
+bp x = (x == ’!’ | | x == ’:’)
 (hd:fin’) = fin
 
 newfin :: String -> String
 newfin xss = right (filter p (foldr brk [""] xss))
 where p xs = (xs /= [] && all isDigit xs)
 brk x ys
-| isSpace x || x == ’,’ || x == ’-’ = "":ys
+| isSpace x | | x == ’,’ | | x == ’-’ = "":ys
 | otherwise = (x:h):t
 where (h:t) = ys
 
@@ -5772,7 +5725,7 @@ allfibs (n+1) = allfibs n ++ [fib (n+1)] -- allfibs.2
 ```
 Usingfastfib, eachfib ncalculation isO(n). Each++call is alsoO(n). Thefib
 and the++are “in sequence”, so each call ofallfibsis justO(n). However, there
-areO(n) recursive calls ofallfibs, so the overall complexity isO(n^2 ).
+areO(n) recursive calls ofallfibs, so the overall complexity isO(n² ).
 
 We again attempt to improve the efficiency by tupling. We begin with the following
 specification forfibs:
@@ -5838,7 +5791,7 @@ Abovethd3is the standard prelude function to extract the third component of a
 
 We have eliminated theO(n)fibcalculations, but still have anO(n) append (++)
 within each of theO(n) recursive calls offibs. This program is better, but is still
-O(n^2 ).
+O(n² ).
 
 Note that in thec ++ [b]expression there is a single element on the right. Perhaps
 we could build this term backwards using cons, anO(1) operation, and then reverse
@@ -6790,11 +6743,11 @@ of the “Big-O” notation and asymptotic analysis.
 
 For example, consider the list-reversing functions rev andreverse that we have
 looked at several times. We stated that the number of steps required to evaluaterev
-xsis, in the worst case, “on the order of”n^2 wherendenotes the length of listxs.
+xsis, in the worst case, “on the order of”n² wherendenotes the length of listxs.
 We let the number of steps be our measure of time and write
 
 ```
-Trev(xs) =O(n^2 )
+Trev(xs) =O(n² )
 ```
 to mean that the time to evaluaterev xsis bounded by some (mathematical) function
 that is proportional to the square of the length of listxs.
@@ -7707,8 +7660,8 @@ Thus, in general,foldl’is the better choice for this case.
 Alternatively, suppose thatopisnonstrict in either argument. Thenfoldris usually
 more efficient thanfoldl.
 
-As an example, consider operation||(i.e., logical-or). The||operator is strict in the
-first argument, but not in the second. That is,True || x = Truewithout having to
+As an example, consider operation| |(i.e., logical-or). The| |operator is strict in the
+first argument, but not in the second. That is,True | | x = Truewithout having to
 evaluatex.
 
 Letxs = [x 1 , x 2 , x 3 , ···, xn]such that
@@ -7718,18 +7671,18 @@ Letxs = [x 1 , x 2 , x 3 , ···, xn]such that
 ```
 Supposexiis the minimumisatisfying the above existential.
 
-foldr (||) False xs
+foldr (| |) False xs
 =⇒ {many steps}
-x 1 || (x 2 || ( ··· || (xi || ( ··· || (xn || False) ··· )
+x 1 | | (x 2 | | ( ··· | | (xi | | ( ··· | | (xn | | False) ··· )
 
-Because of the nonstrict definition of ||, the above can stop after the xi term is
+Because of the nonstrict definition of | |, the above can stop after the xi term is
 processed. None of the list to the right ofxineeds to be evaluated.
 
 However, a version which usesfoldlmust process the entire list.
 
-foldl (||) False xs
+foldl (| |) False xs
 =⇒ {many steps}
-( ··· ( False || x 1 ) || x 2 ) || ···) || xi) || ···) || xn
+( ··· ( False | | x 1 ) | | x 2 ) | | ···) | | xi) | | ···) | | xn
 
 In this example,foldris clearly more efficient thanfoldl.
 
