@@ -468,7 +468,7 @@ of an intellectual foundation for new computer architectures....
 
 ##### ——
 
-Note: In his Turing Award Address, Backus went on to describe FP, his proposal
+Note: In his Turing Award Address, Backus went onto describe FP, his proposal
 for a functional programming language. He argued that languages like FP would
 allow programmers to break out of the von Neumann bottleneck and find new ways
 of thinking about programming. Although languages like Lisp had been in existence
@@ -557,7 +557,7 @@ cut and the ability to assert and retract clauses.
 ### 1. Functional programs are easier to manipulate mathematically thanimperative programs.
 
 The primary reason for this is the property ofreferential transparency, probably
-the most important property of modern functional programming languages.<br>
+the most important property of modern functional programming languages.  
 Referential transparency means that, within some well-defined context, a vari-
 able (or other symbol)alwaysrepresents thesame value. Since a variable always
 has the same value, we can replace the variable in an expression by its value or
@@ -567,7 +567,7 @@ Functional programming languages thus use the same concept of a variable that
 mathematics uses.  
 On the other hand, in most imperative languages a variable represents an ad-
 dress or “container” in which values may be stored; a program may change the
-value stored in a variable by executing an assignment statement.<br>
+value stored in a variable by executing an assignment statement.  
 Because of referential transparency, we can construct, reason about, and manip-
 ulate functional programs in much the same way we can any other mathematical
 expressions [2, 3]. Many of the familiar “laws” from high school algebra still
@@ -587,7 +587,7 @@ laws to transform one program into an equivalent program that can be executed
 more efficiently.
 
 ### 2. Functional programming languages have powerful abstraction mechanisms.
-Speaking operationally, a function is an abstraction of a pattern of behavior.<br>
+Speaking operationally, a function is an abstraction of a pattern of behavior.  
 For example, if we recognize that a Pascal program needs to repeat thesame
 operations for each member of a set of similar data structures, then we usually
 encapsulate the operations in a function or procedure. The function or proce-
@@ -605,7 +605,7 @@ Clearly, Pascal programs implementing sums and products can go through the
 same pattern of operations on the array: initialize a variable to the identity
 element and then loop through the array adding or multiplying each element by
 the result to that point. Instead of having separate functions for each operation,
-why not just have one function and supply the operation as an argument?<br>
+why not just have one function and supply the operation as an argument?  
 A function that can take functions as arguments or return functions as results is
 called ahigher-order function. Most imperative languages do not fully support
 higher-order functions.  
@@ -751,31 +751,31 @@ on programming.
 
 
 ### 1.5 Objections Raised Against Functional Programming
-<br>
+  
 
    ### 1. Functional programming languages are inefficient toys!
 This was definitely true in the early days of functional programming. Functional
 languages tended to execute slowly, require large amounts of memory, and have
-limited capabilities.<br>
+limited capabilities.  
 However, research on implementation techniques has resulted in more efficient
-and powerful implementations today.<br>
+and powerful implementations today.  
 Although functional language implementations will probably continue to in-
 crease in efficiency, they likely will never become as efficient as the implemen-
 tations of imperative “von Neumann” languages are on traditional “von Neu-
-mann” architectures.<br>
+mann” architectures.  
 However, new computer architectures may allow functional programs to ex-
 ecute competitively with the imperative languages on today’s architectures.
 For example, computers based on the dataflow and graph reduction models of
 computation are more suited to execute functional languages than imperative
-languages.<br>
+languages.  
 Also the ready availability of parallel computers may make functional languages
 more competitive because they more readily support parallelism than traditional
-imperative languages.<br>
+imperative languages.  
 Moreover, processor time and memory usage just aren’t as important concerns
 as they once were. Both fast processors and large memories have become rel-
 atively inexpensive and readily available. Now it is common to dedicate one
 or more processors and several megabytes of memory to individual users of
-workstations and personal computers.<br>
+workstations and personal computers.  
 As a result, the community can now afford to dedicate considerable computer
 resources to improving programmer productivity and program reliability; these
 are issues that functional programming may address better than imperative
@@ -785,9 +785,9 @@ languages.
 
 It is still true that functional programming languages are not used very widely
 in industry. But, as we have argued above, the functional style is becoming more
-important—especially as commercial AI applications have begun to appear.<br>
+important—especially as commercial AI applications have begun to appear.  
 If new architectures like the dataflow machines emerge into the marketplace,
-functional programming languages will become more important.<br>
+functional programming languages will become more important.  
 Although the functional programming community has solved many of the dif-
 ficulties in implementation and use of functional languages, more research is
 needed on several issues of importance to the real world: on facilities for in-
@@ -805,11 +805,11 @@ functional versions have not yet been found.
 Maybe. It might be the case that functional programming somehow runs
 counter to the way that normal human minds work—that only mental deviants
 can ever become effective functional programmers. Of course, some people
-might say that about programming and programmers in general.<br>
+might say that about programming and programmers in general.  
 However, it seems more likely that the awkwardness arises from the lack of
 education and experience. If we spend many years studying and doing pro-
 gramming in the imperative style, then any significantly different approach will
-seem unnatural.<br>
+seem unnatural.  
 Let’s give the functional approach a fair chance.
 
 
@@ -817,78 +817,78 @@ Let’s give the functional approach a fair chance.
 
 ### 2.1 Mathematical Concepts and Terminology
 
-In mathematics, afunctionis a mapping from a setAinto a setBsuch that each
-element ofAis mapped into a unique element ofB. The setAis called thedomain
-off. The set of all elements ofBmapped to elements ofAbyfis called therange
-(orcodomain) off, and is denoted byf(A)
+In mathematics, a function is a mapping from a set A into a setB such that each
+element of A is mapped into a unique element of B. The set A  is called the domain
+off. The set of all elements of B mapped to elements of A by f is called the range
+(or codomain) off, and is denoted by f(A)
 
-Iffis a function fromAintoB, then we write:
+If f is a function from A into B, then we write:
 
 ```
-f:A→B
+f : A → B
 ```
-We also write the equationf(a) =bto mean that thevalue(orresult) from applying
-functionfto an elementa∈Ais an elementb∈B.
+We also write the equation f(a) = b  to mean that the value(or result) from applying
+function f to an element  a∈A is an element  b∈B.
 
-A functionf:A→Bisone-to-one(orinjective) if and only if distinct elements of
-Aare mapped to distinct elements ofB. That is,f(a) =f(a′) if and only ifa=a′.
+A function f : A → B is one-to-one(or injective) if and only if distinct elements of
+A are mapped to distinct elements of B. That is f(a) = f(a′) if and only if a=a′.
 
-A functionf:A→Bisonto (orsurjective) if and only if, for every elementb∈B,
-there is some elementa∈Asuch thatf(a) =b.
+A function f : A → B is onto (or surjective) if and only if, for every element b∈B,
+there is some element a∈A such that f(a) = b.
 
-A functionf:A→Bis aone-to-one correspondence(orbijection) if and only iff
+A function f : A → B is a one-to-one correspondence(orbijection) if and only if f
 is one-to-one and onto.
 
-Given functionsf:A→Bandg:B→C, thecompositionoffandg, writteng◦f,
-is a function fromAintoC such that
+Given functions f : A → B and g : B→C, the composition of f and g , written g◦f ,
+is a function from A into C such that
 
 ```
 (g◦f)(a) =g(f(a)).
 ```
-A functionf−^1 :B→Ais aninverseoff:A→Bif and only if, for everya∈A,
-f−^1 (f(a)) =a.
+A function f⁻¹ : B → A is an inverse of f : A → B if and only if, for every a ∈ A,
+f⁻¹ (f(a)) = a.
 
 An inverse exists for any one-to-one function.
 
-If functionf :A→Bis a one-to-one correspondence, then there exists an inverse
-functionf−^1 :B→Asuch that, for everya∈A,f−^1 (f(a)) =aand that, for every
-b∈B,f(f−^1 (b)) =b. Hence, functions that are one-to-one correspondences are also
-said to beinvertible.
+If function f : A → B is a one-to-one correspondence, then there exists an inverse
+function f⁻¹ : B → A such that, for every a ∈ A, f⁻¹ (f(a)) =a and that, for every
+b ∈ B , f(f⁻¹ (b)) =b. Hence, functions that are one-to-one correspondences are also
+said to be invertible.
 
 
-A function⊕: (A×A)→Ais called abinary operation onA. We usually write
-binary operations in infix form:a⊕a′. (In computing science, we often call a function
-⊕: (A×B)→Ca binary operation as well.)
+A function ⊕ : (A×A) → A is called a binary operation on A. We usually write
+binary operations in infix form : a ⊕ a′ . (In computing science, we often call a function
+ ⊕  : (A×B)→C a binary operation as well.)
 
-Let⊕be a binary operation on some setAandx,y, andzbe elements ofA.
+Let ⊕ be a binary operation on some set A and x, y, and z be elements of A.
 
-- Operation⊕isassociativeif and only if (x⊕y)⊕z=x⊕(y⊕z) for anyx,y,
-    andz.
-- Operation⊕iscommutative(also calledsymmetric) if and only ifx⊕y=y⊕x
-    for anyxandy.
-- An elementeof setAis aleft identityof⊕if and only ife⊕x=xfor anyx, a
-    right identityif and only ifx⊕e=x, and anidentityif and only if it is both a
-    left and a right identity. An identity of an operation is sometimes called aunit
+- Operation ⊕ is associative if and only if (x ⊕ y) ⊕ z = x ⊕ (y ⊕ z) for any x, y,
+    and z.
+- Operation ⊕ is commutative (also called symmetric) if and only if x ⊕ y=y ⊕ x
+    for any x and y.
+- An element e of set A is a left identity of ⊕ if and only if e ⊕ x=x for any x, a
+    right identity if and only if x ⊕ e=x, and an identity if and only if it is both a
+    left and a right identity. An identity of an operation is sometimes called a unit
     of the operation.
-- An elementzof setAis aleft zeroof⊕if and only ifz⊕x=zfor anyx, a
-    right zeroif and only ifx⊕z=z, and azero if and only if it is both a right
+- An element z of set A is a left zero of ⊕ if and only if z ⊕ x=z for any x, a
+    right zero if and only if x ⊕ z=z, and a zero if and only if it is both a right
     and a left zero.
-- Ifeis the identity of⊕andx⊕y=efor somexandy, thenxis aleft inverse
-    ofyandyis aright inverse ofx. Elementsxandyare inverses of each other
-    ifx⊕y=e=y⊕x.
-- If⊕is anassociativeoperation, then⊕andAare said to form asemigroup.
-- A semigroup that also has anidentityelement is called amonoid.
-- If every element of a monoid has an inverse then the monoid is called agroup.
-- If a monoid or group is also commutative, then it is said to beAbelian.
+- If e is the identity of ⊕ and x ⊕ y=e for some x and y, then x is a left inverse
+    of y and y is aright inverse of x. Elements x and y are inverses of each other
+    if x ⊕ y=e=y ⊕ x.
+- If ⊕ is an associative operation, then ⊕ and A are said to form a semigroup.
+- A semigroup that also has an identity element is called a monoid.
+- If every element of a monoid has an inverse then the monoid is called a group.
+- If a monoid or group is also commutative, then it is said to be Abelian.
 
 
 ### 2.2 Function Definitions
 
-Note: Mathematicians usually refer to the positive integers as thenatural numbers.
+Note: Mathematicians usually refer to the positive integers as the natural numbers.
 Computing scientists usually include 0 in the set of natural numbers.
 
-Consider the factorial functionfact. This function can be defined in several ways.
-For any natural number, we might definefactwith the equation
+Consider the factorial function fact. This function can be defined in several ways.
+For any natural number, we might define fact with the equation
 
 ```
 fact(n) = 1× 2 × 3 ×···×n
@@ -905,17 +905,16 @@ fact(n) = i∏ =n
 or, in the notation that the instructor prefers, as
 
 ```
-fact(n) = (Πi: 1≤i≤n:i).
+fact(n) = (Πi : 1≤i≤n : i).
 ```
-We note thatfact(0) = 1, theidentityelement of the multiplication operation.
+We note that fact(0) = 1, the identity element of the multiplication operation.
 
-We can also define the factorial function with arecursive definition (orrecurrence
+We can also define the factorial function with a recursive definition (or recurrence
 relation) as follows:
 
 ```
-fact′(n) ={
-1 , ifn= 0
-n×fact′(n−1), ifn≥ 1
+fact′(n) ={1 ,           if n= 0
+          {n×fact′(n−1), if n≥ 1
 ```
 It is, of course, easy to see that the recurrence relation definition is equivalent to the
 previous definitions. But how can we prove it?
@@ -925,39 +924,39 @@ usemathematical inductionover the natural numbers.
 
 ### 2.3 Mathematical Induction over Natural Numbers
 
-To prove a propositionP(n) holds for any natural numbern, one must show two
+To prove a proposition P(n) holds for any natural number n, one must show two
 things:
 
-Base casen= 0. ThatP(0) holds.
+Base case n = 0. That P(0) holds.
 
-Inductive casen=m+1. That, ifP(m) holds for some natural numberm, then
-P(m+1) also holds. (TheP(m) assumption is called theinduction hypothesis.)
+Inductive case n = m+1. That, if P(m) holds for some natural number m, then
+P(m+1) also holds. (The P(m) assumption is called the induction hypothesis.)
 
 
-Now let’s prove that the two definitionsfactandfact′are equivalent, that is, for all
-natural numbersn,
+Now let’s prove that the two definitions fact and fact′ are equivalent, that is, for all
+natural numbers n,
 
 ```
-fact(n) =fact′(n).
+fact(n) = fact′(n).
 ```
-Base casen= 0.
+### Base case n = 0.
 
 ```
 fact(0)
 = {definition offact(left to right)}
-(Πi: 1≤i≤0 :i)
+(Πi : 1≤i≤0 : i)
 = {empty range for Π, 1 is the identity element of× }
 1
 = {definition offact′(first leg, right to left)}
 fact′(0)
 ```
-Inductive casen=m+1.
+### Inductive case n = m+1.
 Givenfact(m) =fact′(m), provefact(m+1) =fact′(m+1).
 fact(m+1)
 = {definition offact(left to right)}
-(Πi: 1≤i≤m+1 :i)
+(Πi :  1≤i≤m+1 : i)
 = {m+1>0, som+1 term exists, split it out}
-(m+1)×(Πi: 1≤i≤m:i)
+(m+1)×(Πi : 1≤i≤m : i)
 = {definition offact(right to left)}
 (m+1)×fact(m)
 = {induction hypothesis}
@@ -965,20 +964,18 @@ fact(m+1)
 = {m+1>0, definition offact′(second leg, right to left)}
 fact′(m+1)
 
-Therefore, we have provedfact(n) =fact′(n) for all natural numbersn. QED
+Therefore, we have proved fact(n) = fact′(n) for all natural numbers n. QED
 
 Note the equational style of reasoning we used. We proved that one expression was
-equal to another by beginning with one of the expressions and repeatedly “substitut-
-ing equals for equals” until we got the other expression.
+equal to another by beginning with one of the expressions and repeatedly “substituting equals for equals” until we got the other expression.
 
-Each transformational step was justified by a definition, a known property of arith-
-metic, or the induction hypothesis.
+Each transformational step was justified by a definition, a known property of arithmetic, or the induction hypothesis.
 
 Note that the structure of the inductive argument closely matches the structure of
-the recursive definition offact′.
+the recursive definition of fact′.
 
 What does this have to do with functional programming? Many of the functions we
-will define in this course have a recursive structure similar tofact′. The proofs and
+will define in this course have a recursive structure similar to fact′. The proofs and
 program derivations that we do will resemble the inductive argument above.
 
 Recursion, induction, and iteration are all manifestations of the same phenomenon.
@@ -990,86 +987,70 @@ Now let’s look at our first function definition in the Gofer language, a progr
 implement the factorial function for natural numbers. (For the purposes of this course,
 remember that the natural numbers consist of 0 and the positive integers.)
 
-In Section 2.2, we saw two definitions,factandfact′, that are equivalent for all natural
-number arguments. We definedfactusing the product operator as follows:
+In Section 2.2, we saw two definitions,fact and fact′, that are equivalent for all natural
+number arguments. We defined fact using the product operator as follows:
 
 ```
-fact(n) =
+          i=n
+fact(n) = ∏=i
+          i=1 
 ```
-```
-i∏=n
-```
-```
-i=1
-```
-```
-i.
-```
-(We note thatfact(0) = 1, which is theidentityelement of the multiplication opera-
-tion.)
+(We note that fact(0) = 1, which is the identity element of the multiplication operation.)
 
-We also defined the factorial function with arecursivedefinition (orrecurrence rela-
-tion) as follows:
+We also defined the factorial function with a recursive definition (or recurrence relation) as follows:
 
 ```
-fact′(n) =
+fact′(n) ={1 ,           if n= 0
+          {n×fact′(n−1), if n≥ 1
 ```
-```
-{
-1 , ifn= 0
-n×fact′(n−1), ifn≥ 1
-```
-Since the domain offact′is the set of natural numbers, a set over which induction is
-defined, we can easily see that this recursive definition is well defined. Forn= 0, the
-base case, the value is simply 1. Forn≥1, the value offact′(n) is recursively defined
-in terms offact′(n−1); the argument of the recursive application decreases toward
+Since the domain of fact′ is the set of natural numbers, a set over which induction is
+defined, we can easily see that this recursive definition is well defined. For n= 0, the
+base case, the value is simply 1. For n≥1, the value of fact′(n) is recursively defined
+in terms of fact′(n−1); the argument of the recursive application decreases toward
 the base case.
 
-One way to translate the recursive definitionfact′into Gofer is the following:
+One way to translate the recursive definitionfact′ into Gofer is the following:
 
 ```
 fact1 :: Int -> Int
 fact1 n = if n == 0 then
-1
-else
-n * fact1 (n-1)
+                1
+          else
+                n * fact1 (n-1)
 ```
-- The first line above is thetype signaturefor functionfact1. In general, type
-    signatures have the syntaxobject::type.
-    Here objectfact1is defined as a function (denoted by the “->” symbol) that
+- The first line above is the type signature for function fact1. In general, type
+    signatures have the syntax object :: type.  
+    Here object fact1 is defined as a function (denoted by the “->” symbol) that
     takes one argument of type integer (denoted by the first Int) and returns a
-    value of type integer (denoted by the lastInt).
-    Gofer does not have a built-in natural number type. Thus we choose typeInt
-    for the argument and result offact1.
+    value of type integer (denoted by the last Int).  
+    Gofer does not have a built-in natural number type. Thus we choose type Int
+    for the argument and result of fact1.  
 
-
-- The declaration for the functionfact1begins on the second line. Note that it
-    is an equation of the formfname parms=bodywherefnameis the name of the
-    function,parmsare the parameters for the function, andbodyis an expression
-    defining the function’s result.
+- The declaration for the function fact1 begins on the second line. Note that it
+    is an equation of the form fname parms = body where fname is the name of the
+    function, parms are the parameters for the function, and body is an expression
+    defining the function’s result.  
     A function may have zero or more parameters. The parameters are listed after
     the function name without being enclosed in parentheses and without commas
-    separating them.
-    The parameter identifiers may appear in thebodyof the function. In the eval-
-    uation of a functionapplicationthe actual argument values are substituted for
-    parameters in thebody.
-- Note that the function fact1is defined to be an if-then-elseexpression.
-    Evaluation of theif-then-elseyields the value 1 if argumentnhas the value
-    0 (i.e.,n == 0) and the valuen * (fact1 (n-1))otherwise.
-- Theelseclause includes a recursive application offact1. The expression(n-1)
-    is the argument for the recursive application.
+    separating them.  
+    The parameter identifiers may appear in the body of the function. In the evaluation of a function application the actual argument values are substituted for parameters in the body.  
+- Note that the function fact1 is defined to be an if-then-else expression.
+    Evaluation of the if-then-else yields the value 1 if argument n has the value
+    0 (i.e.,n == 0) and the value n * (fact1 (n-1)) otherwise.  
+- The else clause includes a recursive application of fact1. The expression(n-1)
+    is the argument for the recursive application.  
     Note that the value of the argument for the recursive application is less than
-    the value of the original argument. For each recursive application offactto a
+    the value of the original argument. For each recursive application of fact to a
     natural number, the argument’s value moves closer to the termination value 0.
-- Unlike most conventional languages, theindentation is significantin Gofer. The
-    indentation indicates the nesting of expressions.
+- Unlike most conventional languages, the indentation is significant in Gofer. The
+    indentation indicates the nesting of expressions.  
 - This Gofer function does not match the mathematical definition given above.
-    What is the difference?
-    Notice the domains of the functions. The evaluation offact1will go into an
+    What is the difference?  
+    Notice the domains of the functions. The evaluation of fact1 will go into an
     “infinite loop” and eventually abort when it is applied to a negative value.
 
-In Gofer there isonlyone way to form more complex expressions from simpler ones:
-applya function.
+In Gofer there is only one way to form more complex expressions from simpler ones:
+apply a function.
 
 Neither parentheses nor special operator symbols are used to denote function appli-
 cation; it is denoted by simply listing the argument expressions following the function
@@ -1094,26 +1075,25 @@ x + y
 ```
 as we have since elementary school.
 
-Function application (i.e., juxtaposition) of function names and argument expres-
-sions) has higher precedence than other operators. Thus the expressionf x + yis
-the same as(f x) + y.
+Function application (i.e., juxtaposition) of function names and argument expressions) has higher precedence than other operators. Thus the expression f x + y is 
+the same as (f x) + y.
 
 An alternative way to differentiate the two cases in the recursive definition is to use a
-different equation for each case. If the Booleanguard(e.g.,n == 0) for an equation
+different equation for each case. If the Boolean guard (e.g., n == 0) for an equation
 evaluates to true, then that equation is used in the evaluation of the function.
 
 ```
 fact2 :: Int -> Int
 fact2 n
-| n == 0 = 1
-| otherwise = n * fact2 (n-1)
+   | n == 0 = 1
+   | otherwise = n * fact2 (n-1)
 ```
-Functionfact2is equivalent to thefact1. The guards are evaluated in a top-to-
-bottom order. Theotherwiseguard succeeds if then == 0guard fails; thus it is
-similar to the trailingelseclause on theif-then-elseexpression used infact1.
+Function fact2 is equivalent to the fact1. The guards are evaluated in a top-to-
+bottom order. The otherwise guard succeeds if then == 0 guard fails; thus it is
+similar to the trailing else clause on the if-then-else expression used in fact1.
 
 Another equivalent way to differentiate the two cases in the recursive definition is to
-usepattern matchingas follows:
+use pattern matching as follows:
 
 ```
 fact3 :: Int -> Int
@@ -1122,26 +1102,26 @@ fact3 n = n * fact3 (n-1)
 ```
 The parameter pattern 0 in the first leg of the definition only matches arguments
 with value 0. Since Gofer checks patterns and guards in a top-to-bottom order, the
-npattern matches all nonzero values. Thusfact1,fact2, andfact3are equivalent.
+n pattern matches all nonzero values. Thus fact1, fact2, and fact3 are equivalent.
 
 To stop evaluation from going into an “infinite loop” for negative arguments, we can
 remove the negative integers from the function’s domain. One way to do this is by
 using guards to narrow the domain to the natural numbers as in the definition of
-fact4below:
+fact4 below:
 
 ```
 fact4 :: Int -> Int
 fact4 n
-| n == 0 = 1
-| n >= 1 = n * fact4 (n-1)
+   | n == 0 = 1
+   | n >= 1 = n * fact4 (n-1)
 ```
 
-Functionfact4is undefined for negative arguments. Iffact4is applied to a negative
+Function fact4 is undefined for negative arguments. If fact4 is applied to a negative
 argument, the evaluation of the program encounters an error quickly and returns
 without going into an infinite loop.
 
 A perhaps more elegant way to narrow the domain is by using Gofer’s special natural
-number patterns of the form(n+k)as shown below:
+number patterns of the form (n+k) as shown below:
 
 ```
 fact5 :: Int -> Int
@@ -1149,14 +1129,14 @@ fact5 0 = 1
 fact5 (n+1) = (n+1) * fact5 n
 ```
 As before, the pattern 0 matches an argument with value 0. But the special pattern
-(n+1)only matches argument values that areat least1; variablenis bound to the
+(n+1) only matches argument values that are at least 1;  variable n is bound to the
 value that is one less than the argument value.
 
-Iffact5is applied to a negative argument, the evaluation of the program encounters
+If fact5 is applied to a negative argument, the evaluation of the program encounters
 an error immediately and returns without going into an infinite loop.
 
 The five definitions we have looked at so far use recursive patterns similar to the
-recurrence relationfact′. Another alternative is to use the library functionproduct
+recurrence relation fact′. Another alternative is to use the library function product
 and the list-generating expression[1..n]to define a solution that is like the function
 fact:
 
@@ -1164,35 +1144,34 @@ fact:
 fact6 :: Int -> Int
 fact6 n = product [1..n]
 ```
-The list expression[1..n]generates alist of consecutive integers beginning with
-1 and ending withn. The library functionproductcomputes the product of the
+The list expression[1..n]generates a list of consecutive integers beginning with
+1 and ending with n. The library function product computes the product of the
 elements of this finite list.
 
-Iffact6is applied to a negative argument, it will return the value 1. This is consistent
-with the functionfactupon which it was based.
+If fact6 is applied to a negative argument, it will return the value 1. This is consistent
+with the function fact upon which it was based.
 
 Which of the above six definitions for the factorial function is better?
 
-Most people in the functional programming community would considerfact5and
-fact6as being better than the others. The choice between them depends upon
+Most people in the functional programming community would consider fact5 and
+fact6 as being better than the others. The choice between them depends upon
 whether one wants to trap the application to negative numbers as an error or to
 return the value 1.
 
 
 ## 4 USING THE GOFER INTERPRETER
 
-This section assumes that the Gofer interpreter is being used on a UNIX-based com-
-puter. Use of Gofer on an MS-DOS PC will differ slightly.
+This section assumes that the Gofer interpreter is being used on a UNIX-based computer. Use of Gofer on an MS-DOS PC will differ slightly.
 
 ### 4.1 Starting Gofer
 
 If the directory containing the Gofer interpreter is in the command path, then the
 following command can be used to start the Gofer interpreter:
 
-```
-goferoptions files
-```
-Theoptionsandfilesarguments are optional.
+
+ **gofer** options files
+
+The options and files arguments are optional.
 
 When the Gofer interpreter begins executing, it initializes itself, displays the prompt
 “? ” on the screen, and then waits for either a Gofer expression (e.g., a function
@@ -1203,251 +1182,246 @@ interpreter commands to be displayed on the screen.
 
 ### 4.2 Gofer Source Files
 
-Gofer source files, usually calledscripts, are text files that contain definitions of
-functions, operators, types, etc. Comments are enclosed by{-and-}or by--and
+Gofer source files, usually called scripts, are text files that contain definitions of
+functions, operators, types, etc. Comments are enclosed by {-and-} or by -- and
 the end of the text line.
 
-We can load Gofer scripts into the interpreter by giving the filenames as thefiles
-arguments on thegofercommand or, more frequently, by issuing a “:load” command
+We can load Gofer scripts into the interpreter by giving the filenames as the files
+arguments on the **gofer** command or, more frequently, by issuing a “**:load**” command
 within the interpreter.
 
-Files ending in.hs,.has,.gs,.gof, and.prelude(.preon DOS) are always treated
-as Gofer scripts. For this course use the filename extension.gsfor ordinary Gofer
-script files and.preludefor prelude (library) files.
+Files ending in **.hs, .has, .gs, .gof, and .prelude(.pre** on DOS) are always treated
+as Gofer scripts. For this course use the filename extension **.gs** for ordinary Gofer
+script files and **.prelude** for prelude (library) files.
 
-Aliterate script is second type of source file that Gofer supports. These are files in
-which everything is a comment except lines that start with a>symbol. This feature
+A *literate script* is second type of source file that Gofer supports. These are files in
+which everything is a comment except lines that start with a > symbol. This feature
 supports a style of programming known as literate programming.
 
-Files ending in.lhs, .lgs,.verb, and.litare always treated as literate scripts.
-For this course use the filename extension.lgsfor literate Gofer script files.
+Files ending in **.lhs, .lgs, .verb,** and **.lit** are always treated as literate scripts.
+For this course use the filename extension **.lgs** for literate Gofer script files.
 
-Aproject fileis a third type of source file that Gofer supports. It allows related files
+A *project file* is a third type of source file that Gofer supports. It allows related files
 (e.g., for one “project”) to be grouped together for processing.
 
 
-A project file contains lines giving names of files and options that are used as param-
-eters to Gofer. As afilesparameter on the command line, project filenames should
-be preceded by a+symbol and a space.
+A project file contains lines giving names of files and options that are used as parameters to Gofer. As a files parameter on the command line, project filenames should
+be preceded by a + symbol and a space.
 
-Files ending in.gpand.prjare always treated as project files by Gofer. For this
-course use the filename extension.gpfor Gofer project files.
+Files ending in .gp and .prj are always treated as project files by Gofer. For this
+course use the filename extension .gp for Gofer project files.
 
 ### 4.3 Command Line Toggles
 
-Gofer supports a number of options. Most of these aretoggles that can be switched
-onby preceding the option letter by the+character oroff by preceding the option
-letter by the-character. These can be set either on the command line when the
-Gofer interpreter is started or with the:setinterpreter command.
+Gofer supports a number of options. Most of these are *toggles* that can be switched
+on by preceding the option letter by the + character or *off* by preceding the option
+letter by the - character. These can be set either on the command line when the
+Gofer interpreter is started or with the :setinterpreter command.
 
 Several options may be grouped together so that:
 
-```
-:set +std -le
-```
-is equivalent to
 
-```
-:set +s +t +d -l -e
-```
+**:set +std -le**  
+         is equivalent to
+
+
+**:set +s +t +d -l -e**  
+
 Below is the list of toggle option letters with the default setting indicated for each.
 
-+s Print statistics on the number of reductions and cells used during evaluation.
+**+s**`  `  Print statistics on the number of reductions and cells used during evaluation.
 
--t Print type of each value after evaluation.
+**-t** Print type of each value after evaluation.
 
--d Show dictionary values in output expressions.
+**-d** Show dictionary values in output expressions.
 
-+f Terminate evaluation on first error.
+**+f** Terminate evaluation on first error.
 
--g Print number of recovered cells after garbage collection.
+**-g** Print number of recovered cells after garbage collection.
 
-+c Test conformality for pattern bindings.
+**+c** Test conformality for pattern bindings.
 
--l Literate scripts as default.
+**-l** Literate scripts as default.
 
-+e Warn about errors in literate scripts.
+**+e** Warn about errors in literate scripts.
 
--i ApplyfromIntegerto integer literals.
+**-i** Apply from Integer to integer literals.
 
-+o Optimize(&&)and(||)by using “short-circuited” versions.
+**+o** Optimize(&&) and (||) by using “short-circuited” versions.
 
--u Catch ambiguously typed top-level variables.
+**-u** Catch ambiguously typed top-level variables.
 
--. Print dots during file analysis.
+**-.** Print dots during file analysis.
 
-+w Always show which files are loaded.
+**+w** Always show which files are loaded.
 
-+1 Overload singleton list notation.
+**+1** Overload singleton list notation.
 
--k Show “kind” errors in full.
+**-k** Show “kind” errors in full.
 
 
 ### 4.4 Other Command Line Options
 
--hnumber Set heap size in cells (default 100000).
-
-```
+**-h** *number* Set heap size in cells (default 100000).  
 This option can be given on the command line, but it cannot be given once the
-interpreter is loaded.
-The interpreter uses theheap to store an intermediate (parsed) form of the
+interpreter is loaded.  
+The interpreter uses the heap to store an intermediate (parsed) form of the
 Gofer source while it is being read, type checked, and compiled. Thus, the
 larger the source file, the larger the heap required. (In practice, large programs
 should be written and loaded as a number of files to avoid exceeding the heap
-capacity.)
-```
--pstring Set interpreter prompt tostring. The default is “?”.
+capacity.)  
 
--rstring Set “repeat last expression” string tostring. The default is “$$”.
+
+**-p** *string*  Set interpreter prompt tostring. The default is “?”.  
+**-r** *string*  Set “repeat last expression” string tostring. The default is “$$”.
 
 ### 4.5 Interpreter Commands
 
-expression Evaluate theexpression.
+*expression*     Evaluate the expression.
 
-:quit Quit (exit) the interpreter.
+**:quit**         Quit (exit) the interpreter.
 
-:? Display this list of interpreter commands.
+**:?**            Display this list of interpreter commands.
 
-:loadfiles Load scripts from the specifiedfiles. Remove previous scripts.
+**:load** *files*   Load scripts from the specifiedfiles. Remove previous scripts.
 
-:alsofiles Read the additionalfiles. Leave previous scripts.
+**:also** *files*   Read the additionalfiles. Leave previous scripts.
 
-:projectfile Use projectfile.
+**:project** *file*  Use projectfile.
 
-:editfile Editfileand reload the scripts if necessary.
+**:edit** *file*     Edit fileand reload the scripts if necessary.
 
-```
+
 This interpreter command starts the editor specified as the value of the EDITOR
 environment variable.
-```
-:typeexpression Print the type of theexpression.
 
-:setoptions Set the command line options.
+**:type** *expression* Print the type of theexpression.
 
-:infonames Describe the named functions, types, etc.
+**:set** *options* Set the command line options.
 
-:findname Edit the file containing definition ofname.
+**:info** *names* Describe the named functions, types, etc.
 
-:namespattern List all names currently in scope.
+**:find** *name* Edit the file containing definition ofname.
 
-```
-If apatternis given, list the names that satisfy the pattern. The pattern may
+**:names** *pattern* List all names currently in scope.
+
+
+If a pattern is given, list the names that satisfy the pattern. The pattern may
 include the standard wildcard characters.
-```
-! command Execute shellcommand.
 
-:cddirectory Change working directory todirectory.
+**!** *command* Execute shellcommand.
+
+**:cd** *directory* Change working directory todirectory.
 
 
 ### 4.6 Environment Variables
 
-GOFER Filename of standard prelude (default function library). This script is
+**GOFER**  Filename of standard prelude (default function library). This script is
 always loaded before all user files.
 
-EDITORFilename of the editor to be used by the:editcommand.
+**EDITOR** Filename of the editor to be used by the :edit command.
 
-EDITLINE Description how the editor can be called with the specified line number
-( at%d) and filename (at%s), e.g., “vi +%d %s”.
+**EDITLINE** Description how the editor can be called with the specified line number
+( at **%d**) and filename (at **%s**), e.g., “**vi +%d %s**”.
 
 ### 4.7 Example
 
-hcc@Cy> gofer
-Gofer Version 2.28a Copyright (c) Mark P Jones 1991-1993
-Reading script file "/usr/local/lib/Gofer/standard.prelude":
-Parsing
-Dependency analysis
-Type checking
-Compiling
-Gofer session for:
-/usr/local/lib/Gofer/standard.prelude
-Type :? for help
-?! ls *.gs
-fact.gs
-leng.gs
-?! cat fact.gs
-fact1 :: Int -> Int
-fact1 n = if n == 0 then
+**hcc@Cy> gofer  
+Gofer Version 2.28a Copyright (c) Mark P Jones 1991-1993  
+Reading script file "/usr/local/lib/Gofer/standard.prelude":**  
+**Parsing  
+Dependency analysis  
+Type checking  
+Compiling  
+Gofer session for:  
+/usr/local/lib/Gofer/standard.prelude  
+Type :? for help**  
+**? ! ls *.gs**  
+**fact.gs  
+leng.gs**
+?! cat fact.gs**  
+**fact1 :: Int -> Int  
+fact1 n = if n == 0 then  
+               1  
+          else  
+            n * fact1 (n-1)** 
+  
+**fact2 :: Int -> Int  
+fact2 n  
+| n == 0      = 1  
+| otherwise = n * fact2 (n-1)**  
+
+**fact3 :: Int -> Int  
+fact3 0 = 1  
+fact3 n = n * fact3 (n-1)** 
+
+
+**fact4 :: Int -> Int  
+fact4 n  
+        | n == 0 = 1  
+        | n >= 5 = n * fact4  (n-1)** 
+
+**fact5 :: Int -> Int  
+fact5 0        = 1  
+fact5 (n+1) = (n+1) * fact5 n**  
+
+**fact6 :: Int -> Int  
+fact6 n = product [1..n]**  
+
+**? : l fact.gs  
+Reading script file "fact.gs":  
+Parsing  
+Dependency analysis  
+Type checking  
+Compiling  
+Gofer session for:  
+/usr/local/lib/Gofer/standard.prelude  
+fact.gs  
+? :n fac** 
+**fact1 fact2 fact3 fact4 fact5 fact6  
+(6 names listed)  
+? fact1 0  
+1  
+(4 reductions, 7 cells)  
+? fact1 4  
+24  
+(19 reductions, 32 cells)  
+? fact1 (-1)  
+(15989 reductions, 31986 cells)  
+ERROR: Control stack overflow  
+? fact5 0  
+1  
+(2 reductions, 5 cells)  
+? fact5 4  
+24  
+(14 reductions, 22 cells)  
+? fact5 (-1)  
+Program error: {fact5 (-1)}  
+(2 reductions, 38 cells)**  
+
+
+**? fact6 0  
 1
-else
-n * fact1 (n-1)
-
-fact2 :: Int -> Int
-fact2 n
-| n == 0 = 1
-| otherwise = n * fact2 (n-1)
-
-fact3 :: Int -> Int
-fact3 0 = 1
-fact3 n = n * fact3 (n-1)
-
-
-fact4 :: Int -> Int
-fact4 n
-| n == 0 = 1
-| n >= 5 = n * fact4 (n-1)
-
-fact5 :: Int -> Int
-fact5 0 = 1
-fact5 (n+1) = (n+1) * fact5 n
-
-fact6 :: Int -> Int
-fact6 n = product [1..n]
-
-? :l fact.gs
-Reading script file "fact.gs":
-Parsing
-Dependency analysis
-Type checking
-Compiling
-Gofer session for:
-/usr/local/lib/Gofer/standard.prelude
-fact.gs
-? :n fac*
-fact1 fact2 fact3 fact4 fact5 fact6
-(6 names listed)
-? fact1 0
-1
-(4 reductions, 7 cells)
-? fact1 4
-24
-(19 reductions, 32 cells)
-? fact1 (-1)
-(15989 reductions, 31986 cells)
-ERROR: Control stack overflow
-? fact5 0
-1
-(2 reductions, 5 cells)
-? fact5 4
-24
-(14 reductions, 22 cells)
-? fact5 (-1)
-Program error: {fact5 (-1)}
-(2 reductions, 38 cells)
-
-
-? fact6 0
-1
-(13 reductions, 20 cells)
-? fact6 4
-24
-(43 reductions, 65 cells)
-? fact6 (-1)
-1
-(11 reductions, 20 cells)
-? fact6 (-49)
-1
-(11 reductions, 20 cells)
-? :q
-[Leaving Gofer]
-hcc@Cy>
+(13 reductions, 20 cells)  
+? fact6 4  
+24  
+(43 reductions, 65 cells)  
+? fact6 (-1)  
+1  
+(11 reductions, 20 cells)  
+? fact6 (-49)  
+1  
+(11 reductions, 20 cells)  
+? :q  
+[Leaving Gofer]  
+hcc@Cy>** 
 
 
 ## 5 GOFER BASICS
 
 ### 5.1 Built-in Types
 
-The type system is an important part of Gofer; the interpreter uses the type infor-
-mation to detect errors in expressions and function definitions. To each expression
+The type system is an important part of Gofer; the interpreter uses the type information to detect errors in expressions and function definitions. To each expression
 Gofer assigns atypethat describes the kind of value represented by the expression.
 
 Gofer has both built-in types and facilities for defining new types. In the following
@@ -1460,14 +1434,14 @@ Gofer supports the usual integer literals (i.e., constants) and operations.
 Floating point numbers: Float
 
 Gofer floating point literals must include a decimal point; they may be signed or in
-scientific notation:3.14159,2.0,-2.0,1.0e4,5.0e-2,-5.0e-2.
+scientific notation : 3.14159,2.0,-2.0,1.0e4,5.0e-2,-5.0e-2.
 
-Booleans: Bool
+Booleans : Bool
 
 Boolean literals areTrueandFalse(note capitals). Gofer supports Boolean opera-
 tions such as&&(and),||(or), andnot.
 
-Characters: Char
+Characters : Char
 
 Gofer supports (ASCII) character literals enclosed in single quotes—including both
 the graphic characters (e.g.,’a’,’0’, and’Z’) and special codes entered following
@@ -1479,10 +1453,10 @@ ASCII character code. The first character of the number being 0 denotes octal,x
 denotes hexadecimal, and another numeric character denotes decimal.
 
 For example, the exclamation point character can be represented in any of the fol-
-lowing ways: ’!’,’\33’,’\041’,’\x21’
+lowing ways : ’!’,’\33’,’\041’,’\x21’
 
 
-Functions: t1 -> t2
+Functions : t1 -> t2
 
 Ift1andt2are types thent1 -> t2is the type of a function that takes an argument
 of typet1and returns a result of typet2. Function and variable names begin with
@@ -1560,7 +1534,7 @@ element[]and the list constructor operation cons (:). As you would expect, a for
 mathematical induction can be used to prove that list-manipulating functions satisfy
 various properties. We will discuss in Section 11.1.
 
-Strings: String
+Strings : String
 
 In Gofer, astring is treated as a list of charaters.. Thus the data typeStringis
 defined with atype synonymas follows:
@@ -2877,12 +2851,12 @@ is also the value returned byfoldrfor nil lists.
 Note how the second leg implements the right binding of the operation:
 
 ```
-foldr (⊕) z [x 1 ,x 2 ,...,xn] = (x 1 ⊕(x 2 ⊕(···(xn⊕z)···)))
+foldr ( ⊕ ) z [x 1 ,x 2 ,...,xn] = (x 1  ⊕ (x 2  ⊕ (···(xn ⊕ z)···)))
 ```
-We can see that the rightmost application of the function⊕ has the last element
-of the list as its left operand and the seed value as its right operand (i.e.,xn⊕z).
-Typically the seed value will be theright identityfor the operation⊕. (An element
-eis aright identityof⊕if and only ifx⊕e=xfor anyx.)
+We can see that the rightmost application of the function  ⊕  has the last element
+of the list as its left operand and the seed value as its right operand (i.e.,xn ⊕ z).
+Typically the seed value will be theright identityfor the operation ⊕ . (An element
+eis aright identityof ⊕ if and only ifx ⊕ e=xfor anyx.)
 
 In Gofer, foldris called afold operation. Other languages sometimes call this a
 reduceorinsertoperation.
@@ -2928,15 +2902,15 @@ the recursive call offoldlthe “seed value” argument is used as an accumulati
 parameter.
 
 ```
-foldl (⊕) z [x 1 ,x 2 ,...,xn] = (···((z⊕x 1 )⊕x 2 )⊕···xn)
+foldl ( ⊕ ) z [x 1 ,x 2 ,...,xn] = (···((z ⊕ x 1 ) ⊕ x 2 ) ⊕ ···xn)
 ```
 Also note how the types offoldrandfoldldiffer.
 
-If⊕is an associative binary operation of typet -> t -> twith identity elementz
+If ⊕ is an associative binary operation of typet -> t -> twith identity elementz
 (i.e., a monoid), then:
 
 ```
-foldr (⊕) z xs = foldl (⊕) z xs
+foldr ( ⊕ ) z xs = foldl ( ⊕ ) z xs
 ```
 Bird and Wadler call this property thefirst duality theorem[2].
 
@@ -2949,11 +2923,11 @@ Depending upon the nature of the operation, an implementation usingfoldrmay be
 more efficient thanfoldlor vice versa. We defer a more complete discussion of the
 efficiency until we study evaluation strategies in Section 13.
 
-As a rule of thumb, however, if the operation⊕isnonstrict(see Section 6.4) in either
+As a rule of thumb, however, if the operation ⊕ isnonstrict(see Section 6.4) in either
 argument, then it is usually better to usefoldr. That form takes better advantage
 of lazy evaluation.
 
-If the operation⊕isstrict(see Section 6.4) in both arguments, then it is often better
+If the operation ⊕ isstrict(see Section 6.4) in both arguments, then it is often better
 (i.e., more efficient) to use the optimized version offoldlcalledfoldl’. We’ll discuss
 this more in Section 13.6.
 
@@ -3117,8 +3091,8 @@ Thus we can express the halving operator with the expression(flip (/) 2).
 Because expressions such as((<) 0)and(flip (/) 2)are quite common in pro-
 grams, Gofer provides a special, more compact and less confusing, syntax.
 
-For some infix operator⊕and arbitrary expressione, expressions of the form(e⊕)
-and(⊕e)represent((⊕) e)and(flip (⊕) e), respectively. Expressions of this
+For some infix operator ⊕ and arbitrary expressione, expressions of the form(e ⊕ )
+and( ⊕ e)represent(( ⊕ ) e)and(flip ( ⊕ ) e), respectively. Expressions of this
 form are calledoperator sections.
 
 Examples:
@@ -5637,11 +5611,11 @@ map f xs = foldr ((:). f) [] xs
 takeWhile p xs ++ dropWhile p xs = xs
 ```
 
-19. Prove that, if⊕is a associative binary operation of typet -> twith identity
+19. Prove that, if ⊕ is a associative binary operation of typet -> twith identity
     elementz(i.e., a monoid), then
 
 ```
-foldr (⊕) z xs = foldl (⊕) z xs
+foldr ( ⊕ ) z xs = foldl ( ⊕ ) z xs
 ```
 20. Remember the Gofer type for the natural numbers given in an exercise in Sec-
     tion 5.6:
@@ -6752,7 +6726,7 @@ parse xs = [ [words’ l | l <- p] | p <- paras’ (lines’ xs) ]
 unparse xssss =
 unlines’ (unparas’ [ [unwords’ l | l<-p] | p<-xssss])
 ```
-Section 4.3.5 of the Bird and Wadler textbook goes on to build functions to fill and
+Section 4.3.5 of the Bird and Wadler textbook goes onto build functions to fill and
 left-justify lines of text.
 
 
@@ -7699,11 +7673,11 @@ foldl f z (x:xs) = foldl f (f z x) xs
 The first duality theorem (as given in the Bird and Wadler textbook) states the
 circumstances in which one can replacefoldrbyfoldland vice versa.
 
-First duality theorem:If⊕is a associative binary operation of typet -> twith
+First duality theorem:If ⊕ is a associative binary operation of typet -> twith
 identity elementz, then:
 
 ```
-foldr (⊕) z xs = foldl (⊕) z xs
+foldr ( ⊕ ) z xs = foldl ( ⊕ ) z xs
 ```
 Thus, often we can use eitherfoldrorfoldlto solve a problem. Which is better?
 
