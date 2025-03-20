@@ -2079,4 +2079,360 @@ natural numbers, and **5** perfect numbers among the next **10,000** numbers.)
 
 
 
+# Introduction to Programming and its Mathematical Foundations
+
+## Lesson 8 : Lists, Part 2 (Lesson 3 forms Lists, Part 1)
+
+$\underline{Notation}$: A list in functional programming is commonly written as a sequence of elements, $\underline{all}$ $\underline{of}$ $\underline{the}$ $\underline{same}$ $\underline{type}$ e.g., **[2,18, 9 , 10 ]**. The _component type_ can be any simple or compound type that is legal in Gofer, e.g., **Int**, and the aggregate _list type_ is written as the component type in brackets, e.g., **[Int]**
+
+This notation is "syntactic sugarcoating" that hides the true, recursive, nature of the list structure (see Figures 1 below).
+
+(Definition): A list is either empty **[ ]**, or consists of a **head** (single element) and a _tail_   
+(list of elements satisfying this recursive definition), all elements of the same type.                     
+The head and tail are connected together by the cons operator, written :: in Gofer.                        
+(Note: In standard Haskell notation, cons is written with a single colon, :)
+                                                                                                
+(Recursive) A non-empty tail has a head (single element( and a tail (itself another list),                     
+till finally the tail is the empty list **[ ]**. The head and tail are connected together by the                  
+cons operator, written :: , so **[ 2 , 18 ,9, 10 ]** is identically equal to      
+**2::(18::( 9 ::( 1 0::[])))** , as illustrated in Figures 1a and 1b.                                                   
+That is, the value of **[2,18,9, 1 0] == 2::(18::(9::( 1 0::[])))** is **True**.
+
+
+```
+           ::
+           /\ 
+          /  \
+          2  ::  
+             /\ 
+            /  \
+           18 ::  
+              /\
+             /  \
+             9 ::  
+               /\ 
+              /  \
+             10 []
+
+Figure 1 a: Structure of [2, 18, 9, 1 0]
+
+``` 
+  
+
+Lists can be represented in a natural way as lopsided trees, see Figure 1. The inverse operators
+of **::** are the built-in unary functions head and **tail**, and there is a **length** function,
+so that **length([2, 18, 9, 10])** is **4** , and **length([])** is **0**.
+
+Further, just like we have the **n+1** pattern for positive integers, there is an **x::xs**
+pattern for nonempty lists. There is no particular significance to the names—x stands
+for one element, and **xs** stands for many elements. Just as the base case for the **n+1**
+pattern is **0** , for lists it is **[]**. Note that neither the n+1 pattern nor the [ pattern can
+match the base case—the **n+1** pattern matches integer arguments 1 and above,
+while the **x::xs** pattern matches non-empty lists, i.e., lists of size 1 or more.
+
+```
+    tail  ::
+          /\
+         /  \
+        18  ::
+            /\
+           /  \
+          9   ::
+              /\
+             /  \
+             10 []
+
+Figure 1b: the head is 2 and the tail is [18, 9, 10]
+
+
+```
+
+```
+Signatures                 Examples                            Application
+
+head: [a] - > a           head.[2, 18 ,9,0] =              2 head.(x::xs) = x
+tail: [a] - > [a]         tail.[2, 18 ,9,0] = [18,9,0]      tail.(x::xs) = xs
+length: [a] - > Int       length.[2, 18 ,9,0] = 4           length.[] = 0
+
+```
+The various forms of recursive function definition for integers, as shown in file **recfuncs.gs**, can be
+used in recursive function definitions for lists. Assume that s is a list, **x::xs** is a list pattern. Just as
+the induction case for integers connects parameter **n** to **n- 1** , we have s connected to tail.s on the right
+hand side, and as the induction case connects pattern **n+1** to **n**, we have **x::xs** connected to **x**. To
+practically observe these “connections,” inspect the details of the example for **len**, given below
+
+Assume **len** is a function that finds list length. (The name of the built-in function is not len but **length**.)
+The different versions of len are structured as below. The first uses the **x::xs** pattern, the second uses
+function tail, and the third uses a conditional expression. The **n+1** pattern matches integers 1 and above,
+the **x::xs** pattern matches non-empty lists (of length **>= 1** ).
+
+```
+Induction case first (using pattern x::xs) Base case first (using parameter s)
+
+len.(x::xs) = 1+len. xs len.[] = 0
+len.[] = 0 len. s = 1 + len.(tail.s)
+
+Conditional expression: len. s = if s==[] then 0 else 1 + len.(tail.s)
+
+```
+
+
+# PROOF BY STRUCTURAL INDUCTION, FOR LISTS
+
+Remark: Structural induction, a generalisation of mathematical induction, is used to prove that some
+proposition **P(x)** holds for all instances x of some “recursively defined” structure, such as lists or trees.
+Often, such a proof proceeds by natural induction on the size of the structure.
+
+Let **P(s)** be a well-formed proposition that involves s, a list in the sense of purely functional programming.
+We want to show that **P(s)** holds, i.e., **P(s)** is true, for all lists s in a given context, e.g., a certain list type.
+
+The base case will be for small-sized lists, typically the empty list **[]**, and sometimes the singleton list [x].
+As with natural numbers, the base case for lists is usually shown to be correct by inspection. The induction case
+will be for non-empty lists, denoted by the pattern **x::xs**, or lists with >2 elements **x::y::ys**. The induction
+hypothesis is that **P(xs)** is true, and the induction step is to do “something” with x, the list head, and the value of
+the recursive call on the list tail **xs**, and conclude that **P(x::xs)** holds, i.e., show that **P(xs)=>P(x::xs)**
+
+```
+len: [a] -> Int
+len. [ ] = 0
+len. (x::xs) = 1 + len. xs
+
+sum: Num.a => [a] - > Int–all numeric types a
+sum. [ ] = 0
+sum. (x::xs) = x + sum. xs
+```
+Below, you will find descriptions of problems that can be
+solved naively (i.e., from first principles, i.e., using the “base case first” or “induction case first” or “conditional expression” approaches, (according to your thinking or problem-solving strategy.)
+
+To get a complete expression out of the “mention” below, you have to supply the list argument, e.g., when
+the argument is list s, the complete expressions are, e.g., **len.s** or **oll.p.s** or **isin.q.s**.
+
+```
+Function        mention       description
+
+len            len          length of a list (same as builtin length)
+
+total          otal        sum of list elements (same as builtin sum)
+
+produc        produc       product of list elements (same as product)
+
+countevens    countevens    count the even numbers in the list
+
+sumEvens      sumEvens      sum the even numbers in the list
+
+sumalt1      sumalt1    sum of alternating elements starting from the head of the list
+
+sumalt2     sumalt2  sum of alt elements, not counting the head, i.e., sumalt1 of the tail
+
+anee         anee.p    does any element satisfy predicate p, same as builtin any
+
+oll         oll.p do  all list elements satisfy predicate p, same as builtin all
+
+```
+
+
+
+# Introduction to Programming and its Mathematical Foundations
+
+## Lesson 9 : Functions with multiple arguments
+
+Note: File **script0 9 .gs**, to be loaded into the interpreter, contains the functions being discussed below.
+
+Summary: **How to provide n> 1 arguments to a function, one at a time**
+
+Terminology: When the number of arguments of a function is **1 , 2 , 3 ,... , n,** the function is called a
+**unary, binary, ternary,... , n-ary** function. Examples: the area of a rectangle, with its length and
+breadth as arguments, or the volume of a cylinder, given its radius and height, are binary functions.
+
+How to pass multiple arguments to a function? This question arises because in the lambda calculus, the
+mathematics underlying functional programming, all functions are supposed to be unary.
+
+In the Gofer expression **f.x**, the dot "." is a binary operator whose left operand **f** is a function
+and right operand **x** is the argument to which it is applied. (Therefore it appears that **f** is a unary function.)
+In Gofer notation, we say in general that if **f: a->b, then x: a** and **f.x: b**. In other words, the type
+of **x** has to be the same as the domain type of **f**, otherwise there is a type mismatch. Likewise, the
+resulting type of **f.x** is the range type of **f**.
+
+One way to pass multiple arguments to a unary function is to put the arguments into a tuple by placing
+parentheses around them, and make this tuple the single argument to the function, like **x** in **f.x** above, e.g.,
+
+```
+area: Num.a => (a, a) -> a? area. (2, 3)
+-- area of a rectangle 6 : Int
+-- a can be any numerical type? area. (2.5, 2.0)
+area. (len, br) = len * br 5.0 : Float
+```
+€: Write a binary function that computes the volume of a cylinder: **vol.(rad, ht) = pi * rad^2*ht.**
+
+Q: What is the type of **vol?** Hint: Since **pi: Float**, the radius and height of the cylinder also have to be **Float**. (Recall: In Gofer you can perform arithmetic operations on **Int**, or on **Float**, but not on a combination.)
+
+Rem: You can imagine the general case, when 3 or more arguments can be enclosed into a single tuple.
+
+Using type **Num.a => (a,a)-> a** for function **area** can lead to a message (which I won’t try to explain) like:
+
+```
+ERROR "script0 8 .gs" (line 5): Unresolved top-level overloading
+*** Binding : area_c
+*** Inferred type : _5 -> _5 -> _
+*** Outstanding context : Num._
+```
+So I modified **area** to **area1** and **area2**, where the sides of the rectangle are **Int** and **Float**, respectively.
+
+```
+area1: (Int, Int) -> Int?               area1. (5.0, 10.0)
+area1. (len , br) = len * br            ERROR: Type error in application
+? area 1. ( 5 , 10 )                    *** expression : area1.(5.0,10.0)
+50 : Int                                *** term : (5.0,10.0)
+                                        *** type : (Float,Float)
+                                        *** does not match : (Int,Int)
+area 2 : (Float, Float) -> Float        ? area 2. (5.0, 10.0)
+area 2. (len , br) = len * br           50.0 : Float
+```
+
+$\underline{The}$ $\underline{curry}$ $\underline{and}$ $\underline{uncurry}$ $\underline{operator}$ $\underline{for}$ $\underline{binary}$ $\underline{function}$
+
+We want to be able to supply arguments to a function without having to consolidate them into a tuple.
+The **curry** operator does that for binary functions, and the **uncurry** operation is the inverse of **curry**.
+Once we understand **curry**, its generalization can be used for arbitrary number of arguments.
+(In comparison to **curry**, the **uncurry** operator is not so important.)
+
+Given functions like **area1** and **area2** above, note how the **curry** and **uncurry** operators are applied.
+
+```
+area1c = curry.area1           -- The “curried” version of area
+area1u = uncurry. area1c       -- The curried version is “uncurried” in turn
+area 2 c = curry.area 2        -- The “curried” version of area
+area 2 u = uncurry. area 2 c   -- The curried version is “uncurried”
+```
+The signature of the original **area1** is given below. Based upon it, the signatures of
+**area1c** (the curried **area1**) and **area1u** (the uncurried **area1c**) are as follows:
+
+```
+? :t area1                        ? :t area1u
+area1 : (Int,Int) -> Int          area1u : (Int,Int) -> Int
+? :t area1c                       ? area1u -- “uncurried” area1c
+area1c : Int -> Int -> Int        uncurry.area1c : (Int,Int) -> Int
+? area1c -- “curried” area1       ? area1u. (8, 4)
+curry.area1 : Int -> Int -> Int   32 : Int
+```
+€: Functions **area2, area2c** and **area2u** are defined in file **script0 9 .gs*. Find their types.
+
+We can easily make sense of the types of functions **area1** and **area1u**, as they both have the type
+**(Int, Int)->Int**. That is, if their argument is a pair of integers, they will return an integer result.
+
+€: But what to make of the type of the curried function **area1c**, namely, **Int -> Int -> Int?**
+Note that 1. there are two arrows in the type signature, rather than the usual one arrow, and further,
+that 2. are no parentheses, i.e., a pair of integers are not to be provided.
+
+Experiment 1 : Give a single integer as an argument to **area1c**, and observe what happens.
+
+```
+? area1c. 10
+curry.area1.10 : Int -> Int
+```
+Outcome: If **area1c** is given a single integer as an argument, it returns a function of type **Int -> Int**.
+
+Experiment 2 : Give function **area1c.10** another integer as an argument and see what happens.
+
+```
+? area1c. 10. 20
+200 : Int
+```
+Outcome: **area1 c** computes the area of the rectangle with sides **10** and **20** , just as the original **area1** does.
+
+The difference is that function area1 has to be given the two arguments together, in the pair **(10, 20)**
+but the curried function **area1c** can take the arguments one at a time. Phrasing it in different words, we
+can delay giving the second argument of **area1c**.
+
+€: In file **script08.gs**, the function len10 has been defined as **len10 = area1c.10**. Find the
+type of **len10**, give it an appropriate argument, and find out what the resulting value is.
+
+```
+? :t len10                     ? len10. 20 -- breadth 20
+len10 : Int -> Int             200 : Int
+? len10                        ? len10. 56
+curry.area1.10 : Int -> Int    56 0 : Int
+```
+
+Rem: In an expression **f.x.y**, the dot associates to the left, i.e., **f.x.y = (f.x).y**, i.e., the dot on
+the left is applied first—resulting in a unary function—and only then the dot on the right is applied next.
+While **area1** is of type **Int->Int->Int**, the most general type of f is **a->b->c**, with **x:a** and **y:b**.
+
+You would be able to argue to yourself that $\underline{if}$ $\underline{dot}$ $\underline{associate}$ $\underline{to}$ $\underline{the}$ $\underline{left,}$ $\underline{then}$ $\underline{arrow}$ $\underline{must}$ $\underline{associate}$ $\underline{to}$ $\underline{the}$ $\underline{right}$.
+
+Just in case you cannot convince yourself about the arrow associating to the **right**, define two functions called
+**left 1** and **right 1**. These functions can do something trivial, like returning the sum of the two parameters.
+
+Place parentheses in the type definition of function right to force the arrow to associate to the right, thus:
+**right: Int -> (Int -> Int)**. Similarly, place parentheses in function left to force the arrow to
+associate to the left, thus **left: (Int -> Int) -> Int**. We want to see which function is type correct.
+
+```
+left: (Int -> Int) -> Int          right: Int -> (Int -> Int)
+left. x. y = x+y                   right. x. y = x+y
+```
+We cannot even load the script into the interpreter, as there is a type error in the definition of function **left**.
+
+```
+ERROR "script08.gs" (line 14): Type error in function binding
+*** term : left
+*** type : a -> a -> a
+*** does not match : (Int -> Int) -> Int
+```
+In other words, forcing left associativity of the arrow in function **left** leads to type incorrectness. SoI
+commented out the definition of **left 1** so that the script can be loaded, and asked for the type of **right**.
+
+```
+? :t right
+right : Int->Int->Int
+? right. 10. 20
+30 : Int
+```
+Observe: Something interesting has happened. In the type definition for function **right**, we had put
+parentheses around the right arrow, thus **right 1 : Int -> (Int -> Int)**. But when we asked
+for the type of **right** the interpreter removed the parentheses. This has happened because in the
+interpreter’s view the parentheses are superfluous.
+
+Conclusion: Forcing left associativity of the arrow by putting parentheses in **left** caused a type error,
+but forcing right associativity of the arrow in **right** caused the interpreter to ignore the parentheses.
+We have discovered an important fact: $\underline{when}$ $\underline{dot}$ $\underline{associate}$ $\underline{to}$ $\underline{the,}$ $\underline{arrow}$ $\underline{associate}$ $\underline{to}$ $\underline{the}$ $\underline{right}$.
+
+$\underline{Problem}$ (Example of a binary function in uncurried and curried form): We want to raise an **Int** or a **Float**
+to an integer power using the exponentiation operator "**^**". Below, and in file **script09.gs**, the curried form of
+the function is called **power**, whereas the uncurried form carries an extra letter as a suffix, thus **poweru**.
+
+```
+power: Num.a => a - > Int -> a          poweru: Num.a => (a, Int) -> a
+power. base. n = base ^ n               poweru(base, n) = base ^ n
+? :t power                              ? :t poweru
+power : Num.a => a -> Int -> a          poweru : Num.a => (a,Int) -> a
+? :t power. 2
+power.2 : Int -> Int – type variable a takes value Int
+? :t power. 2.
+power.2.0 : Int -> Float -- a takes value Float
+? power. 2. 5
+32 : Int
+? power. 2.0. 5
+32.0 : Float
+```
+
+Background: The builtin function exp is of type **Float->Float**. The value of **exp.x** is e (the base of
+natural logarithms, value **2.71828**) raised to power **x**.
+
+Functions **poweru** and **power** are generalizations of **exp**, in the sense that the base is not **e** but any **Int**
+or **Float** value, and and they are variations of **exp**, in the sense that the base is raised to an integer power.
+The values returned by **poweru** or **powerc** are of type **Num.a => a**, i.e., **Int** or **Float**, depending on
+whether **base** is **Int** or **Float**.
+
+€: Verify that function **expo**, defined in **script08.gs**, produces the same values as the builtin function **exp**.
+
+Problem set (under construction):
+
+Define **mult.m.n**, the multiplication of two integers **m** and **n**, without using the multiplication operator.
+Hint: use a recursive function to implement multiplication as repeated addition.
+
+
+
+
+
 
